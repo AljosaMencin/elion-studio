@@ -5,7 +5,7 @@ const Hero = () => {
         
         {/* Logo */}
         <img 
-          src="/elion-logo.png" 
+          src={`${import.meta.env.BASE_URL}elion-logo.png`} 
           alt="Elion Logo" 
           className="mb-8 w-[28rem] md:w-[48rem] invert opacity-90 animate-fade-in" 
         />

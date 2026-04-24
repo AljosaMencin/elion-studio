@@ -24,7 +24,7 @@ const Nav = () => {
       <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-12">
         <a href="#" className="flex items-center gap-2">
           <img 
-            src="/Text 2.png" 
+            src={`${import.meta.env.BASE_URL}Text 2.png`} 
             alt="Elion" 
             className="h-20 w-auto transition-opacity hover:opacity-100" 
             style={{ filter: "brightness(0) invert(1)" }}
