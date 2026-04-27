@@ -3,9 +3,11 @@ import IntroPreloader from "@/components/elion/IntroPreloader";
 import Nav from "@/components/elion/Nav";
 import Hero from "@/components/elion/Hero";
 import LogoMarquee from "@/components/elion/LogoMarquee";
-import Work from "@/components/elion/Work";
-import Approach from "@/components/elion/Approach";
-import Results from "@/components/elion/Results";
+import CoreModules from "@/components/elion/CoreModules";
+import HowItWorks from "@/components/elion/HowItWorks";
+import SolutionsPreview from "@/components/elion/SolutionsPreview";
+import ProofResults from "@/components/elion/ProofResults";
+import WhyElion from "@/components/elion/WhyElion";
 import CTA from "@/components/elion/CTA";
 import Footer from "@/components/elion/Footer";
 
@@ -18,9 +20,11 @@ const Index = () => {
       <main className="relative z-10">
         <Hero />
         <LogoMarquee />
-        <Work />
-        <Approach />
-        <Results />
+        <CoreModules />
+        <HowItWorks />
+        <SolutionsPreview />
+        <ProofResults />
+        <WhyElion />
         <CTA />
       </main>
       <Footer />

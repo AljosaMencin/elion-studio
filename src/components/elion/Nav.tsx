@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const links = [
+  { label: "Services", href: "#services" },
+  { label: "How it works", href: "#how-it-works" },
   { label: "Work", href: "#work" },
-  { label: "Approach", href: "#approach" },
   { label: "Results", href: "#results" },
-  { label: "Studio", href: "#studio" },
 ];
 
 const Nav = () => {
