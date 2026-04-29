@@ -1,10 +1,20 @@
-const solutions = [
+import { useState } from "react";
+
+type Solution = {
+  tag: string;
+  title: string;
+  description: string;
+  metrics: { v: string; l: string }[];
+  preview: (hovered: boolean) => React.ReactNode;
+};
+
+const solutions: Solution[] = [
   {
     tag: "E-Commerce",
     title: "Shopify storefronts that convert",
     description: "Fast, beautiful stores built to turn visitors into buyers. Optimized checkout flows and product pages.",
     metrics: [{ v: "+147%", l: "Conversion" }, { v: "0.84s", l: "LCP" }],
-    preview: (
+    preview: (hovered) => (
       <div className="flex flex-col gap-2 p-4">
         <div className="h-2 w-3/4 rounded-full bg-white/8" />
         <div className="h-2 w-1/2 rounded-full bg-white/5" />
@@ -15,8 +25,17 @@ const solutions = [
             </div>
           ))}
         </div>
-        <div className="mt-2 h-8 w-full rounded-lg bg-indigo-500/20 border border-indigo-500/20 flex items-center justify-center">
-          <div className="h-1.5 w-1/3 rounded-full bg-indigo-400/40" />
+        <div
+          className="mt-2 h-8 w-full rounded-lg flex items-center justify-center transition-colors duration-300"
+          style={{
+            background: hovered ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.04)",
+            border: `1px solid ${hovered ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.06)"}`,
+          }}
+        >
+          <div
+            className="h-1.5 w-1/3 rounded-full transition-colors duration-300"
+            style={{ background: hovered ? "rgba(129,140,248,0.4)" : "rgba(255,255,255,0.1)" }}
+          />
         </div>
       </div>
     ),
@@ -26,7 +45,7 @@ const solutions = [
     title: "B2B sites that book demos",
     description: "From outdated brochure to a lead engine. Structured to qualify visitors and convert them into booked calls.",
     metrics: [{ v: "8.2×", l: "More demos" }, { v: "1.1s", l: "TTI" }],
-    preview: (
+    preview: (_hovered) => (
       <div className="flex flex-col gap-2 p-4">
         <div className="h-6 w-2/3 rounded-lg bg-white/8" />
         <div className="h-2 w-full rounded-full bg-white/4 mt-1" />
@@ -49,22 +68,39 @@ const solutions = [
     title: "Marketing sites that drive signups",
     description: "Built for product companies. Clear positioning, feature storytelling, and conversion funnels that get trials.",
     metrics: [{ v: "+241%", l: "Signups" }, { v: "0.9s", l: "LCP" }],
-    preview: (
+    preview: (hovered) => (
       <div className="flex flex-col gap-2 p-4">
         <div className="flex items-center gap-2 mb-1">
-          <div className="h-5 w-5 rounded bg-indigo-500/30" />
+          <div
+            className="h-5 w-5 rounded transition-colors duration-300"
+            style={{ background: hovered ? "rgba(99,102,241,0.3)" : "rgba(255,255,255,0.06)" }}
+          />
           <div className="h-2 w-20 rounded-full bg-white/10" />
         </div>
         <div className="h-5 w-4/5 rounded-lg bg-white/8" />
         <div className="h-2 w-full rounded-full bg-white/4 mt-1" />
         <div className="mt-3 flex gap-2">
-          <div className="h-7 flex-1 rounded-full bg-indigo-500/20 border border-indigo-500/20" />
+          <div
+            className="h-7 flex-1 rounded-full transition-colors duration-300"
+            style={{
+              background: hovered ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.04)",
+              border: `1px solid ${hovered ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.06)"}`,
+            }}
+          />
           <div className="h-7 flex-1 rounded-full bg-white/4 border border-white/6" />
         </div>
         <div className="mt-2 flex items-end gap-1 h-12">
           {[40,60,50,75,65,85,80].map((h,i) => (
-            <div key={i} className="flex-1 rounded-sm"
-              style={{ height: `${h}%`, background: i >= 4 ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.04)" }} />
+            <div
+              key={i}
+              className="flex-1 rounded-sm transition-colors duration-300"
+              style={{
+                height: `${h}%`,
+                background: i >= 4
+                  ? (hovered ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.06)")
+                  : "rgba(255,255,255,0.04)",
+              }}
+            />
           ))}
         </div>
       </div>
@@ -75,7 +111,7 @@ const solutions = [
     title: "Portfolios that win clients",
     description: "Editorial-grade design for architects, studios, and agencies. Your work deserves a site that commands attention.",
     metrics: [{ v: "12", l: "Inbound/mo" }, { v: "+89%", l: "Engagement" }],
-    preview: (
+    preview: (_hovered) => (
       <div className="flex flex-col gap-2 p-4">
         <div className="aspect-video w-full rounded-lg bg-white/4 border border-white/6 flex items-end p-3">
           <div className="flex flex-col gap-1">
@@ -94,6 +130,8 @@ const solutions = [
 ];
 
 const SolutionsPreview = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section id="work" className="relative px-6 py-32 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1440px]">
@@ -120,10 +158,12 @@ const SolutionsPreview = () => {
               className={`group relative flex flex-col rounded-2xl border border-white/6 bg-obsidian-surface overflow-hidden transition-all duration-500 hover:border-white/12 hover:-translate-y-1 ${
                 i % 2 !== 0 ? "md:mt-12" : ""
               }`}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Preview visual */}
               <div className="border-b border-white/6 bg-[#060608]">
-                {s.preview}
+                {s.preview(hoveredIndex === i)}
               </div>
 
               {/* Content */}
