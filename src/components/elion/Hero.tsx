@@ -1,5 +1,8 @@
+import { LaptopFrame } from "@/components/elion/DeviceMockups";
+
 const HeroVisual = () => (
-  <div className="relative w-full max-w-2xl rounded-2xl border border-white/8 bg-obsidian-surface/80 shadow-glow overflow-hidden backdrop-blur-sm">
+  <LaptopFrame>
+  <div className="relative w-full h-full rounded-none border-0 bg-obsidian-surface/80 overflow-hidden" style={{ maxWidth: "100%" }}>
     {/* Browser chrome */}
     <div className="flex items-center gap-2 border-b border-white/6 px-4 py-3">
       <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
@@ -64,6 +67,7 @@ const HeroVisual = () => (
       </div>
     </div>
   </div>
+  </LaptopFrame>
 );
 
 const Hero = () => {

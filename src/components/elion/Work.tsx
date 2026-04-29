@@ -1,9 +1,17 @@
+import {
+  LaptopFrame,
+  PhoneStorefront,
+  LaptopDashboardScreen,
+  LaptopMarketingScreen,
+  LaptopPortfolioScreen,
+} from "@/components/elion/DeviceMockups";
+
 type Case = {
   client: string;
   category: string;
   headline: string;
   metrics: { value: string; label: string }[];
-  image: string;
+  visual: React.ReactNode;
 };
 
 const cases: Case[] = [
@@ -15,7 +23,7 @@ const cases: Case[] = [
       { value: "+147%", label: "Conversion" },
       { value: "0.84s", label: "LCP" },
     ],
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop",
+    visual: <PhoneStorefront />,
   },
   {
     client: "Northwind Capital",
@@ -25,7 +33,13 @@ const cases: Case[] = [
       { value: "8.2×", label: "Demos" },
       { value: "1.1s", label: "TTI" },
     ],
-    image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop",
+    visual: (
+      <div className="flex items-center justify-center w-full h-full" style={{ background: "#030305", padding: "10%" }}>
+        <LaptopFrame>
+          <LaptopDashboardScreen />
+        </LaptopFrame>
+      </div>
+    ),
   },
   {
     client: "Helix Studio",
@@ -35,7 +49,13 @@ const cases: Case[] = [
       { value: "+241%", label: "Signups" },
       { value: "0.9s", label: "LCP" },
     ],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop",
+    visual: (
+      <div className="flex items-center justify-center w-full h-full" style={{ background: "#030305", padding: "10%" }}>
+        <LaptopFrame>
+          <LaptopMarketingScreen />
+        </LaptopFrame>
+      </div>
+    ),
   },
   {
     client: "Forma Atelier",
@@ -45,7 +65,13 @@ const cases: Case[] = [
       { value: "12", label: "Inbound/mo" },
       { value: "+89%", label: "Engagement" },
     ],
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop",
+    visual: (
+      <div className="flex items-center justify-center w-full h-full" style={{ background: "#030305", padding: "10%" }}>
+        <LaptopFrame>
+          <LaptopPortfolioScreen />
+        </LaptopFrame>
+      </div>
+    ),
   },
 ];
 
@@ -68,19 +94,12 @@ const Work = () => {
               key={c.client}
               className={`group relative flex flex-col gap-6 ${i % 2 !== 0 ? "md:mt-32" : ""}`}
             >
-              {/* Visual block with actual image placeholder */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-obsidian-surface">
-                <img
-                  src={c.image}
-                  alt={c.client}
-                  className="absolute inset-0 h-full w-full object-cover opacity-80 grayscale transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
-                />
-                <div className="absolute inset-0 border border-border/50" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-obsidian to-transparent p-8">
-                  <span className="font-display text-4xl font-bold tracking-tight text-bone">
-                    {c.client.split(" ")[0]}
-                  </span>
+              {/* Device visual */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#030305] border border-white/5">
+                <div className="absolute inset-0">
+                  {c.visual}
                 </div>
+                <div className="absolute inset-0 border border-border/30" />
               </div>
 
               <div className="flex flex-col gap-4">
@@ -90,7 +109,7 @@ const Work = () => {
                 <h3 className="font-display text-2xl font-medium leading-tight text-bone md:text-3xl">
                   {c.headline}
                 </h3>
-                
+
                 <div className="mt-4 grid grid-cols-2 gap-4 border-t border-border pt-4">
                   {c.metrics.map((m) => (
                     <div key={m.label}>
