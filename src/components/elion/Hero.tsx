@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const CHART_DATA = [0.28, 0.24, 0.32, 0.38, 0.34, 0.43, 0.50, 0.46, 0.55, 0.62, 0.58, 0.67, 0.64, 0.74, 0.71, 0.83, 0.79, 0.92];
 const W = 380;
-const H = 68;
+const H = 90;
 
 function makeSmoothPath(data: number[], w: number, h: number): string {
   const pad = 5;
@@ -138,11 +138,12 @@ const HeroVisual = () => {
                 width="100%"
                 viewBox={`0 0 ${W} ${H}`}
                 preserveAspectRatio="none"
-                style={{ height: 56, display: "block" }}
+                style={{ height: 76, display: "block" }}
               >
                 <defs>
                   <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(99,102,241,0.4)" />
+                    <stop offset="0%" stopColor="rgba(99,102,241,0.55)" />
+                    <stop offset="70%" stopColor="rgba(99,102,241,0.08)" />
                     <stop offset="100%" stopColor="rgba(99,102,241,0)" />
                   </linearGradient>
                   <clipPath id="chartClip">
