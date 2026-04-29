@@ -7,83 +7,100 @@ const AnimatedBackdrop = () => {
       s = (s * 1664525 + 1013904223) >>> 0;
       return s / 0xffffffff;
     };
-    return Array.from({ length: 180 }, () => ({
+    return Array.from({ length: 130 }, () => ({
       x: rand() * 1920,
       y: rand() * 1080,
-      r: 0.4 + rand() * 1.5,
-      o: 0.07 + rand() * 0.55,
+      r: 0.3 + rand() * 1.3,
+      o: 0.05 + rand() * 0.45,
     }));
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#020202]">
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      style={{ background: "#010208" }}
+    >
+      {/* Stars */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 1920 1080"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        {stars.map((star, i) => (
+          <circle key={i} cx={star.x} cy={star.y} r={star.r} fill="white" opacity={star.o} />
+        ))}
+      </svg>
 
-      {/* Original aurora blobs at full strength */}
+      {/* Planet ambient light spilling into space */}
       <div
-        className="absolute -left-[10%] -top-[10%] h-[100vh] w-[100vw] opacity-50 blur-[100px] animate-aurora"
-        style={{ background: "radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.15), transparent 70%)" }}
-      />
-      <div
-        className="absolute -right-[20%] top-[30%] h-[80vh] w-[80vw] opacity-40 blur-[120px] animate-aurora-2"
-        style={{ background: "radial-gradient(circle at 50% 50%, rgba(148, 163, 184, 0.1), transparent 65%)" }}
-      />
-      <div
-        className="absolute bottom-[-10%] left-[20%] h-[60vh] w-[60vw] opacity-30 blur-[80px] animate-aurora"
-        style={{ background: "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1), transparent 70%)" }}
+        className="absolute"
+        style={{
+          width: "75vw",
+          height: "75vw",
+          left: "-25vw",
+          bottom: "-32vw",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 65% 28%, rgba(40,110,255,0.07) 0%, transparent 65%)",
+          filter: "blur(60px)",
+        }}
       />
 
-      {/* Space layer at 10% opacity */}
-      <div className="absolute inset-0" style={{ opacity: 0.1 }}>
-        {/* Stars */}
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1920 1080"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          {stars.map((star, i) => (
-            <circle key={i} cx={star.x} cy={star.y} r={star.r} fill="white" opacity={star.o} />
-          ))}
-        </svg>
-
-        {/* Planet body */}
+      {/* Planet body */}
+      <div
+        className="absolute"
+        style={{
+          width: "min(54vw, 800px)",
+          height: "min(54vw, 800px)",
+          left: "-14vw",
+          bottom: "-20vh",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 65% 28%, rgba(18,55,160,0.70) 0%, rgba(4,12,45,0.99) 42%, #010208 65%)",
+        }}
+      >
+        {/* Surface terrain/cloud detail */}
         <div
-          className="absolute"
           style={{
-            width: "min(52vw, 760px)",
-            height: "min(52vw, 760px)",
-            left: "-13vw",
-            bottom: "-18vh",
+            position: "absolute",
+            inset: 0,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle at 66% 30%, rgba(28,72,195,0.75) 0%, rgba(8,18,55,0.99) 45%, #020202 68%)",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: "50%",
-              background:
-                "radial-gradient(ellipse 55% 38% at 56% 40%, rgba(40,100,220,0.22) 0%, transparent 55%), radial-gradient(ellipse 32% 22% at 28% 68%, rgba(15,48,130,0.14) 0%, transparent 50%)",
-            }}
-          />
-        </div>
-
-        {/* Atmosphere rim */}
-        <div
-          className="absolute"
-          style={{
-            width: "min(56vw, 820px)",
-            height: "min(56vw, 820px)",
-            left: "calc(-13vw - 2vw)",
-            bottom: "calc(-18vh - 2vh)",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle at 66% 30%, transparent 45%, rgba(55,130,255,0.28) 51%, rgba(30,95,220,0.09) 63%, transparent 74%)",
-            filter: "blur(10px)",
+              "radial-gradient(ellipse 50% 35% at 58% 38%, rgba(28,85,210,0.28) 0%, transparent 52%), radial-gradient(ellipse 28% 20% at 24% 64%, rgba(8,35,110,0.18) 0%, transparent 48%)",
           }}
         />
       </div>
+
+      {/* Atmosphere rim — the bright blue arc */}
+      <div
+        className="absolute"
+        style={{
+          width: "min(58vw, 860px)",
+          height: "min(58vw, 860px)",
+          left: "calc(-14vw - 2vw)",
+          bottom: "calc(-20vh - 2vh)",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 65% 28%, transparent 42%, rgba(100,175,255,0.70) 46%, rgba(55,135,255,0.28) 51%, rgba(25,90,220,0.07) 62%, transparent 71%)",
+          filter: "blur(3px)",
+        }}
+      />
+
+      {/* Outer corona — softer wide glow */}
+      <div
+        className="absolute"
+        style={{
+          width: "min(72vw, 1060px)",
+          height: "min(72vw, 1060px)",
+          left: "calc(-14vw - 9vw)",
+          bottom: "calc(-20vh - 9vh)",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle at 65% 28%, transparent 47%, rgba(40,115,255,0.11) 57%, rgba(18,75,200,0.04) 70%, transparent 80%)",
+          filter: "blur(22px)",
+        }}
+      />
     </div>
   );
 };
