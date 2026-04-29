@@ -84,8 +84,8 @@ const Hero = () => {
             </div>
 
             <h1 className="max-w-[16ch] text-balance font-display text-[3rem] font-bold leading-[0.92] tracking-tighter text-bone md:text-[5rem] lg:text-[5.5rem] animate-fade-in">
-              Websites + Systems + Data —{" "}
-              <span className="text-bone/30">built to grow your business.</span>
+              Premium Web Design{" "}
+              <span className="text-bone/30">Services & Innovations</span>
             </h1>
 
             <p
