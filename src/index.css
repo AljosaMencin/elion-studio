@@ -152,25 +152,6 @@
 .animate-aurora { animation: aurora-drift 12s ease-in-out infinite; }
 .animate-aurora-2 { animation: aurora-drift-2 15s ease-in-out infinite; }
 .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
-
-@keyframes bg-drift {
-  0%, 100% { transform: translateY(0px) scale(1.02); }
-  50% { transform: translateY(-6px) scale(1.02); }
-}
-
-@keyframes atmos-pulse {
-  0%, 100% { opacity: 0.18; }
-  50% { opacity: 0.38; }
-}
-
-@keyframes arc-shimmer {
-  0%, 100% { opacity: 0; }
-  40%, 60% { opacity: 0.07; }
-}
-
-.animate-bg-drift { animation: bg-drift 8s ease-in-out infinite; }
-.animate-atmos-pulse { animation: atmos-pulse 6s ease-in-out infinite; }
-.animate-arc-shimmer { animation: arc-shimmer 10s ease-in-out infinite; }
 .animate-float-up { animation: float-up 1.2s var(--ease-out-soft) both; }
 
 @keyframes menu-in {

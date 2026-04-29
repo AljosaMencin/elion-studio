@@ -1,48 +1,28 @@
 const AnimatedBackdrop = () => {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black">
-
-      {/* Base image — slightly oversized so drift never exposes edges */}
-      <div className="absolute inset-0 animate-bg-drift" style={{ margin: "-12px" }}>
-        <img
-          src="/elion-studio/future2.png"
-          alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      </div>
-
-      {/* Atmosphere glow pulse — enhances the arc's brightness */}
-      <div
-        className="absolute inset-0 animate-atmos-pulse"
-        style={{
-          background:
-            "radial-gradient(ellipse 85% 40% at 60% 42%, rgba(80,150,255,1) 0%, transparent 65%)",
-          mixBlendMode: "screen",
-        }}
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#020202]">
+      {/* Primary Indigo Aurora */}
+      <div 
+        className="absolute -left-[10%] -top-[10%] h-[100vh] w-[100vw] opacity-50 blur-[100px] animate-aurora"
+        style={{ 
+          background: "radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.15), transparent 70%)" 
+        }} 
+      />
+      
+      {/* Secondary Slate/Silver Aurora */}
+      <div 
+        className="absolute -right-[20%] top-[30%] h-[80vh] w-[80vw] opacity-40 blur-[120px] animate-aurora-2"
+        style={{ 
+          background: "radial-gradient(circle at 50% 50%, rgba(148, 163, 184, 0.1), transparent 65%)" 
+        }} 
       />
 
-      {/* Arc shimmer — periodic bright flash along the diagonal */}
-      <div
-        className="absolute inset-0 animate-arc-shimmer"
-        style={{
-          background:
-            "linear-gradient(135deg, transparent 20%, rgba(180,220,255,1) 50%, transparent 80%)",
-          mixBlendMode: "screen",
-        }}
-      />
-
-      {/* Edge vignette — keeps corners deep black */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 75% 70% at 55% 45%, transparent 25%, rgba(0,0,0,0.75) 100%)",
-        }}
+      {/* Depth Violet Glow */}
+      <div 
+        className="absolute bottom-[-10%] left-[20%] h-[60vh] w-[60vw] opacity-30 blur-[80px] animate-aurora"
+        style={{ 
+          background: "radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1), transparent 70%)" 
+        }} 
       />
     </div>
   );
