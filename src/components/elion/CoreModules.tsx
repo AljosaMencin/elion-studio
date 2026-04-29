@@ -42,7 +42,11 @@ const modules = [
   },
 ];
 
+import { useState } from "react";
+
 const CoreModules = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section id="services" className="relative px-6 py-32 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1440px]">
@@ -58,47 +62,52 @@ const CoreModules = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {modules.map((m) => (
-            <div
-              key={m.tag}
-              className={`group relative flex flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 ${
-                m.featured
-                  ? "border-indigo-500/30 bg-indigo-950/30 shadow-[0_0_60px_-20px_rgba(99,102,241,0.3)]"
-                  : "border-white/6 bg-obsidian-surface hover:border-white/12"
-              }`}
-            >
-              {m.featured && (
-                <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent" />
-              )}
-
-              <div className={`mb-6 flex h-11 w-11 items-center justify-center rounded-xl border ${
-                m.featured ? "border-indigo-400/30 bg-indigo-400/10 text-indigo-300" : "border-white/8 bg-white/4 text-bone/60"
-              }`}>
-                {m.icon}
-              </div>
-
-              <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-bone/40">
-                {m.tag}
-              </div>
-              <h3 className="font-display text-3xl font-bold tracking-tight text-bone md:text-4xl">
-                {m.title}
-              </h3>
-
-              <p className="mt-4 flex-1 text-sm font-medium leading-relaxed text-bone/50">
-                {m.description}
-              </p>
-
-              <a
-                href="#contact"
-                className={`mt-8 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 ${
-                  m.featured ? "text-indigo-300 hover:text-indigo-200" : "text-bone/40 hover:text-bone"
+          {modules.map((m, i) => {
+            const active = hoveredIndex === i;
+            return (
+              <div
+                key={m.tag}
+                className={`group relative flex flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 ${
+                  active
+                    ? "border-indigo-500/30 bg-indigo-950/30 shadow-[0_0_60px_-20px_rgba(99,102,241,0.3)]"
+                    : "border-white/6 bg-obsidian-surface hover:border-white/12"
                 }`}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                {m.cta}
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </a>
-            </div>
-          ))}
+                {active && (
+                  <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent" />
+                )}
+
+                <div className={`mb-6 flex h-11 w-11 items-center justify-center rounded-xl border transition-colors duration-500 ${
+                  active ? "border-indigo-400/30 bg-indigo-400/10 text-indigo-300" : "border-white/8 bg-white/4 text-bone/60"
+                }`}>
+                  {m.icon}
+                </div>
+
+                <div className="mb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-bone/40">
+                  {m.tag}
+                </div>
+                <h3 className="font-display text-3xl font-bold tracking-tight text-bone md:text-4xl">
+                  {m.title}
+                </h3>
+
+                <p className="mt-4 flex-1 text-sm font-medium leading-relaxed text-bone/50">
+                  {m.description}
+                </p>
+
+                <a
+                  href="#contact"
+                  className={`mt-8 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 ${
+                    active ? "text-indigo-300 hover:text-indigo-200" : "text-bone/40 hover:text-bone"
+                  }`}
+                >
+                  {m.cta}
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </a>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
