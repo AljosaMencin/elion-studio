@@ -1,76 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LaptopFrame } from "@/components/elion/DeviceMockups";
-
-const HeroVisual = () => (
-  <LaptopFrame>
-  <div className="relative w-full h-full rounded-none border-0 bg-obsidian-surface/80 overflow-hidden" style={{ maxWidth: "100%" }}>
-    {/* Browser chrome */}
-    <div className="flex items-center gap-2 border-b border-white/6 px-4 py-3">
-      <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-      <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-      <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-      <div className="ml-3 flex-1 rounded-full bg-white/5 px-3 py-1 text-[10px] text-bone/30 font-mono">
-        elion.studio / dashboard
-      </div>
-    </div>
-
-    {/* Dashboard content */}
-    <div className="p-5 flex flex-col gap-4">
-      {/* Stat row */}
-      <div className="grid grid-cols-3 gap-3">
-        {[
-          { label: "Conversion Rate", value: "+81%", delta: "↑ 12% this week" },
-          { label: "Organic Traffic", value: "14.2k", delta: "↑ 37% MoM" },
-          { label: "Revenue", value: "$48k", delta: "↑ 24% MoM" },
-        ].map((s) => (
-          <div key={s.label} className="rounded-xl border border-white/6 bg-white/3 p-3">
-            <p className="text-[9px] font-semibold uppercase tracking-widest text-bone/40 mb-1">{s.label}</p>
-            <p className="font-display text-xl font-bold text-bone tracking-tight">{s.value}</p>
-            <p className="text-[9px] text-emerald-400/70 mt-0.5">{s.delta}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Chart placeholder */}
-      <div className="rounded-xl border border-white/6 bg-white/3 p-4">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-widest text-bone/40">Site Performance</span>
-          <span className="text-[9px] text-bone/20">Last 30 days</span>
-        </div>
-        <div className="flex items-end gap-1 h-16">
-          {[30, 45, 35, 55, 48, 62, 58, 70, 65, 80, 75, 90, 85, 95].map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-sm"
-              style={{
-                height: `${h}%`,
-                background: i >= 10
-                  ? "linear-gradient(to top, rgba(99,102,241,0.8), rgba(139,92,246,0.4))"
-                  : "rgba(255,255,255,0.06)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Task list */}
-      <div className="rounded-xl border border-white/6 bg-white/3 p-3 flex flex-col gap-2">
-        {[
-          { text: "Homepage A/B test deployed", done: true },
-          { text: "CTA copy optimized → +14% CTR", done: true },
-          { text: "Speed audit: LCP improved to 0.9s", done: false },
-        ].map((t) => (
-          <div key={t.text} className="flex items-center gap-2.5">
-            <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${t.done ? "bg-emerald-400/70" : "bg-white/20"}`} />
-            <span className={`text-[10px] font-medium ${t.done ? "text-bone/40 line-through" : "text-bone/60"}`}>{t.text}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-  </LaptopFrame>
-);
+import HeroDashboardAnimation from "@/components/elion/HeroDashboardAnimation";
 
 const StartProjectButton = () => {
   const [hovered, setHovered] = useState(false);
@@ -174,7 +104,7 @@ const Hero = () => {
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:items-center lg:gap-20">
 
           {/* Left: Copy */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-1">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-[0.95]">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/4 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-bone/60 animate-fade-in">
               <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/80" />
               Digital growth studio
@@ -216,10 +146,10 @@ const Hero = () => {
 
           {/* Right: Visual */}
           <div
-            className="w-full lg:flex-1 animate-fade-in"
+            className="w-full lg:flex-[1.15] animate-fade-in"
             style={{ animationDelay: "200ms" }}
           >
-            <HeroVisual />
+            <HeroDashboardAnimation />
           </div>
         </div>
       </div>

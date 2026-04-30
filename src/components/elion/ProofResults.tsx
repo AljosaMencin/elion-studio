@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import ScrollFadeBlur from "@/components/elion/ScrollFadeBlur";
 
@@ -338,10 +338,88 @@ const cards: CardDef[] = [
 // ── Section ─────────────────────────────────────────────────────────────────
 
 const ProofResults = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [autoIndex, setAutoIndex] = useState<number | null>(null);
+  const [manualIndex, setManualIndex] = useState<number | null>(null);
+  const userInteractedRef = useRef(false);
+  const tourStartedRef = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const stopAutoTour = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    if (startTimeoutRef.current) {
+      clearTimeout(startTimeoutRef.current);
+      startTimeoutRef.current = null;
+    }
+    setAutoIndex(null);
+  };
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (
+            e.isIntersecting &&
+            e.intersectionRatio > 0.35 &&
+            !tourStartedRef.current &&
+            !userInteractedRef.current
+          ) {
+            tourStartedRef.current = true;
+            io.unobserve(e.target);
+            // Brief delay so the cards finish their entrance before the tour starts
+            startTimeoutRef.current = setTimeout(() => {
+              if (userInteractedRef.current) return;
+              let i = 0;
+              setAutoIndex(0);
+              intervalRef.current = setInterval(() => {
+                if (userInteractedRef.current) {
+                  stopAutoTour();
+                  return;
+                }
+                i += 1;
+                if (i >= cards.length) {
+                  stopAutoTour();
+                  return;
+                }
+                setAutoIndex(i);
+              }, 1300);
+            }, 350);
+          }
+        });
+      },
+      { threshold: [0.35, 0.5] }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      stopAutoTour();
+    };
+  }, []);
+
+  const handleCardEnter = (i: number) => {
+    userInteractedRef.current = true;
+    stopAutoTour();
+    setManualIndex(i);
+  };
+
+  const handleCardLeave = () => {
+    setManualIndex(null);
+  };
+
+  const hoveredIndex = manualIndex !== null ? manualIndex : autoIndex;
 
   return (
-    <section id="results" className="relative px-6 py-32 md:px-12 md:py-40 bg-obsidian-surface">
+    <section
+      id="results"
+      ref={sectionRef}
+      className="relative px-6 py-32 md:px-12 md:py-40 bg-obsidian-surface"
+    >
       <div className="mx-auto max-w-[1440px]">
 
         <ScrollFadeBlur className="mb-20">
@@ -358,8 +436,8 @@ const ProofResults = () => {
             return (
               <motion.div
                 key={c.tag}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => handleCardEnter(i)}
+                onMouseLeave={handleCardLeave}
                 className={`group relative flex flex-col rounded-2xl border bg-[#0a0a0d] p-5 transition-colors duration-300 ease-out ${
                   active
                     ? "border-indigo-400/35 bg-[#0c0d18]"

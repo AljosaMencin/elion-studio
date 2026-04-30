@@ -1,33 +1,107 @@
 // Reusable premium device mockup components
+import { motion } from "framer-motion";
 
 export const LaptopFrame: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = "",
 }) => (
-  <div className={`relative w-full ${className}`} style={{ aspectRatio: "16/10.4" }}>
-    {/* Lid + screen */}
-    <div
-      className="absolute inset-0 overflow-hidden rounded-xl"
-      style={{ background: "#111113", border: "1px solid rgba(255,255,255,0.08)", paddingBottom: "4%" }}
+  <div
+    className={`relative w-full ${className}`}
+    style={{
+      perspective: "2400px",
+      perspectiveOrigin: "50% 35%",
+      paddingBottom: "7%",
+    }}
+  >
+    {/* 3D unit with subtle continuous left/right rotation */}
+    <motion.div
+      className="relative mx-auto"
+      style={{
+        transformStyle: "preserve-3d",
+        transformOrigin: "center center",
+      }}
+      animate={{ rotateY: [-11, -5, -11], rotateX: [4, 5.5, 4] }}
+      transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
     >
-      {/* Webcam dot */}
+      {/* Screen / lid */}
       <div
-        className="absolute left-1/2 z-10 -translate-x-1/2 rounded-full"
-        style={{ top: "1.4%", width: 5, height: 5, background: "#222" }}
-      />
-      {/* Screen bezel → content */}
-      <div
-        className="absolute overflow-hidden"
-        style={{ inset: "3% 2.5% 5% 2.5%", background: "#050507", borderRadius: 4 }}
+        className="relative w-full"
+        style={{
+          aspectRatio: "16/10",
+          background: "linear-gradient(180deg, #1c1c20 0%, #101013 100%)",
+          borderRadius: 16,
+          border: "1px solid rgba(255,255,255,0.08)",
+          overflow: "hidden",
+          boxShadow:
+            "0 50px 100px -25px rgba(0,0,0,0.75), 0 90px 180px -50px rgba(99,102,241,0.22), inset 0 0 0 1px rgba(255,255,255,0.04)",
+        }}
       >
-        {children}
+        {/* Subtle screen-top reflection */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 z-20"
+          style={{
+            height: "30%",
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%)",
+          }}
+        />
+        {/* Webcam */}
+        <div
+          className="absolute left-1/2 z-10 -translate-x-1/2 rounded-full"
+          style={{ top: "1.4%", width: 5, height: 5, background: "#0a0a0c" }}
+        />
+        {/* Screen bezel → content */}
+        <div
+          className="absolute overflow-hidden"
+          style={{ inset: "3% 2.5% 4% 2.5%", background: "#050507", borderRadius: 5 }}
+        >
+          {children}
+        </div>
       </div>
-    </div>
-    {/* Keyboard base */}
-    <div
-      className="absolute bottom-0 left-[-2%] right-[-2%] rounded-b-2xl"
-      style={{ height: "4%", background: "#0e0e10", borderTop: "1px solid rgba(255,255,255,0.05)" }}
-    />
+
+      {/* Base lip — clean trapezoidal edge below the screen */}
+      <div
+        className="absolute"
+        style={{
+          left: "-1.5%",
+          right: "-1.5%",
+          top: "100%",
+          height: "3.2%",
+          background:
+            "linear-gradient(180deg, #2a2a30 0%, #1a1a20 60%, #0c0c10 100%)",
+          clipPath: "polygon(2.5% 0%, 97.5% 0%, 100% 100%, 0% 100%)",
+          boxShadow:
+            "0 1px 0 rgba(255,255,255,0.06) inset, 0 30px 50px -10px rgba(0,0,0,0.7)",
+        }}
+      />
+      {/* Notch / palm-rest cutout in the front edge */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{
+          top: "calc(100% + 3.05%)",
+          width: "16%",
+          height: "0.9%",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3))",
+          borderRadius: "0 0 4px 4px",
+        }}
+      />
+
+      {/* Soft floor shadow under the laptop */}
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          left: "-8%",
+          right: "-8%",
+          top: "108%",
+          height: "10%",
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%)",
+          filter: "blur(8px)",
+          transform: "translateZ(-50px)",
+        }}
+      />
+    </motion.div>
   </div>
 );
 
