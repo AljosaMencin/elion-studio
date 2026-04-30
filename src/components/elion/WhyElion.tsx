@@ -1,13 +1,15 @@
+import { motion } from "framer-motion";
+import ScrollFadeBlur from "@/components/elion/ScrollFadeBlur";
+
 const features = [
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
       </svg>
     ),
-    title: "AI-powered speed",
-    description: "We build in days, not months. AI accelerates design, dev, and content without cutting corners on quality.",
+    title: "Built for speed",
+    description: "From wireframe to live site in days, not months — without cutting corners on quality or polish.",
   },
   {
     icon: (
@@ -68,39 +70,65 @@ const WhyElion = () => {
     <section id="why" className="relative px-6 py-32 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1440px]">
 
-        <div className="mb-24 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
-              Why Elion
-            </p>
-            <h2 className="font-display text-5xl font-bold leading-[0.92] tracking-tighter text-bone md:text-7xl">
-              Built different, <br />
-              <span className="text-bone/30">by design.</span>
-            </h2>
-          </div>
-          <p className="max-w-[36ch] text-sm font-medium leading-relaxed text-bone/40 md:text-right">
-            Most agencies hand you a site and disappear. We stay, optimize, and grow with you.
+        <ScrollFadeBlur className="mb-24">
+          <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
+            Why Elion
           </p>
-        </div>
+          <h2 className="font-display text-5xl font-bold leading-[0.92] tracking-tighter text-bone md:text-7xl">
+            Built different, <br />
+            <span className="text-bone/30">by design.</span>
+          </h2>
+        </ScrollFadeBlur>
 
-        <div className="grid grid-cols-1 gap-px border border-white/6 bg-white/6 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="group flex flex-col gap-4 bg-obsidian p-8 transition-colors duration-300 hover:bg-obsidian-surface"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/4 text-bone/50 transition-colors duration-300 group-hover:border-indigo-500/30 group-hover:bg-indigo-500/10 group-hover:text-indigo-300">
-                {f.icon}
-              </div>
-              <h3 className="font-display text-lg font-bold tracking-tight text-bone">
-                {f.title}
-              </h3>
-              <p className="text-sm font-medium leading-relaxed text-bone/45">
-                {f.description}
-              </p>
-            </div>
-          ))}
-        </div>
+        <motion.div
+          className="grid grid-cols-1 gap-px border md:grid-cols-2 lg:grid-cols-3"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.15, margin: "0px 0px -10% 0px" }}
+          variants={{
+            hidden: {
+              borderColor: "rgba(255,255,255,0)",
+              backgroundColor: "rgba(255,255,255,0)",
+            },
+            visible: {
+              borderColor: "rgba(255,255,255,0.06)",
+              backgroundColor: "rgba(255,255,255,0.06)",
+              transition: { duration: 1.05, ease: [0.22, 1, 0.36, 1] },
+            },
+          }}
+        >
+          {features.map((f, i) => {
+            const delay = i * 0.14;
+            return (
+              <motion.div
+                key={f.title}
+                className="group relative flex flex-col gap-4 bg-obsidian p-8 transition-colors duration-300 hover:bg-obsidian-surface"
+                variants={{
+                  hidden: { opacity: 0, x: -90, scale: 0.82, filter: "blur(10px)" },
+                  visible: { opacity: 1, x: 0, scale: 1, filter: "blur(0px)" },
+                }}
+                transition={{
+                  delay,
+                  opacity: { duration: 0.4, ease: "easeOut" },
+                  filter: { duration: 0.4, ease: "easeOut" },
+                  x: { type: "spring", stiffness: 220, damping: 18, mass: 0.7 },
+                  scale: { type: "spring", stiffness: 260, damping: 14, mass: 0.6 },
+                }}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/8 bg-white/4 text-bone/50 transition-colors duration-300 group-hover:border-indigo-500/30 group-hover:bg-indigo-500/10 group-hover:text-indigo-300">
+                  {f.icon}
+                </div>
+                <h3 className="font-display text-lg font-bold tracking-tight text-bone">
+                  {f.title}
+                </h3>
+                <p className="text-sm font-medium leading-relaxed text-bone/45">
+                  {f.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
       </div>
     </section>
   );

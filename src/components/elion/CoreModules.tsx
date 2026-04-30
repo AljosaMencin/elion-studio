@@ -1,6 +1,6 @@
 const modules = [
   {
-    tag: "BUILD",
+    tag: "WEBSITES",
     title: "Websites",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -43,6 +43,7 @@ const modules = [
 ];
 
 import { useState } from "react";
+import ScrollFadeBlur from "@/components/elion/ScrollFadeBlur";
 
 const CoreModules = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -51,7 +52,7 @@ const CoreModules = () => {
     <section id="services" className="relative px-6 py-32 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1440px]">
 
-        <div className="mb-20 flex flex-col items-center text-center">
+        <ScrollFadeBlur className="mb-20 flex flex-col items-center text-center">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
             What we do
           </p>
@@ -59,7 +60,7 @@ const CoreModules = () => {
             Three ways we <br />
             <span className="text-bone/30">grow your business.</span>
           </h2>
-        </div>
+        </ScrollFadeBlur>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {modules.map((m, i) => {
@@ -67,10 +68,10 @@ const CoreModules = () => {
             return (
               <div
                 key={m.tag}
-                className={`group relative flex flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 ${
+                className={`group relative flex flex-col rounded-2xl border p-8 transition-all duration-300 ease-out ${
                   active
-                    ? "border-indigo-500/30 bg-indigo-950/30 shadow-[0_0_60px_-20px_rgba(99,102,241,0.3)]"
-                    : "border-white/6 bg-obsidian-surface hover:border-white/12"
+                    ? "-translate-y-1 border-indigo-400/40 bg-indigo-950/40 shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]"
+                    : "border-white/[0.06] bg-obsidian-surface"
                 }`}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -79,8 +80,10 @@ const CoreModules = () => {
                   <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent" />
                 )}
 
-                <div className={`mb-6 flex h-11 w-11 items-center justify-center rounded-xl border transition-colors duration-500 ${
-                  active ? "border-indigo-400/30 bg-indigo-400/10 text-indigo-300" : "border-white/8 bg-white/4 text-bone/60"
+                <div className={`mb-6 flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 ease-out ${
+                  active
+                    ? "scale-110 border-indigo-300/50 bg-indigo-400/20 text-indigo-200 shadow-[0_0_24px_-2px_rgba(129,140,248,0.6)]"
+                    : "border-white/8 bg-white/4 text-bone/60"
                 }`}>
                   {m.icon}
                 </div>

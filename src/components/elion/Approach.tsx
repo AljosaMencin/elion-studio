@@ -7,7 +7,7 @@ const steps = [
   {
     n: "02",
     t: "Design",
-    d: "Premium, conversion-focused design built with AI speed.",
+    d: "Premium, conversion-focused design — built fast, without compromises.",
   },
   {
     n: "03",

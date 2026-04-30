@@ -13,7 +13,7 @@ const Footer = () => {
               />
             </a>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-sand">
-              An AI-powered web studio building modern, high-performing websites for ambitious brands.
+              A digital growth studio building modern, high-performing websites and systems for ambitious brands.
             </p>
           </div>
 
