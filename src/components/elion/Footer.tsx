@@ -12,9 +12,6 @@ const Footer = () => {
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </a>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-sand">
-              A digital growth studio building modern, high-performing websites and systems for ambitious brands.
-            </p>
           </div>
 
           <div>
