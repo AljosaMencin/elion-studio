@@ -46,6 +46,10 @@ const HeroPhoneVideo: React.FC = () => {
           transform: "translate(-50%, -50%)",
           display: "block",
           pointerEvents: "none",
+          // Safari fallback: video has a flat black bg (no alpha). `lighten`
+          // makes pure-black pixels invisible against the page's indigo
+          // backdrop while keeping the phone's bright pixels visible.
+          mixBlendMode: isSafari ? "lighten" : undefined,
         }}
       >
         {isSafari ? (
