@@ -14,10 +14,40 @@ import React from "react";
 //
 // autoPlay requires `muted` and `playsInline` on iOS/iPadOS.
 
+// We need the MP4 fallback for any browser that can't decode VP9 alpha:
+//   • all iOS browsers (Safari, Chrome iOS, Edge iOS, in-app browsers like
+//     Messenger / Instagram / Twitter) — they all use WKWebView and inherit
+//     its lack of VP9 alpha support, even when the UA doesn't say "Safari"
+//   • macOS desktop Safari
+//
+// `iPad` may not appear in newer iPadOS UA strings (which masquerade as
+// macOS), so we also fall back to detecting touch + Mac.
 const detectIsSafari = (): boolean => {
   if (typeof window === "undefined") return false;
   const ua = window.navigator.userAgent;
-  return /Safari/.test(ua) && !/Chrome|Chromium|Edg|OPR|Brave/.test(ua);
+
+  // Any phone/tablet that runs iOS or iPadOS
+  if (/iPad|iPhone|iPod/.test(ua)) return true;
+
+  // iPadOS 13+ identifies as Macintosh; sniff via touch capability
+  const isIPadOSAsMac =
+    /Macintosh/.test(ua) &&
+    typeof navigator !== "undefined" &&
+    (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints !==
+      undefined &&
+    (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! > 1;
+  if (isIPadOSAsMac) return true;
+
+  // Desktop Safari on macOS — has "Safari" but none of the major Chromium
+  // forks and not Firefox.
+  if (
+    /Safari/.test(ua) &&
+    !/Chrome|Chromium|Edg|OPR|Brave|Firefox|FxiOS/.test(ua)
+  ) {
+    return true;
+  }
+
+  return false;
 };
 
 // SVG filter that masks dark pixels to transparent at render time. Used as a
