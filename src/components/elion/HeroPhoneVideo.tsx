@@ -2,26 +2,17 @@ import React from "react";
 
 // Hero visual — looping rotating phone reveal.
 //
-// Two source files are produced from the same green-screen master:
-//   • hero-phone.webm — VP9 with alpha channel (yuva420p). True transparency.
-//     Used by Chrome, Edge, Firefox, and most Android browsers.
-//   • hero-phone.mp4  — H.264 with the phone composited onto the page's dark
-//     background colour. Used by Safari, which does not support VP9 alpha.
+// Two render paths:
+//   1. Browsers that support VP9 alpha (Chrome, Edge, Firefox, Android Chrome):
+//      direct <video> playing public/videos/hero-phone.webm. True transparency.
+//   2. iOS / iPadOS / macOS Safari (incl. iOS Chrome, Edge iOS, Messenger /
+//      Instagram in-app browsers — they all use WKWebView, no VP9 alpha):
+//      hidden <video> plays the original green-screen master, a <canvas>
+//      reads each frame and chroma-keys the green out, displaying real
+//      transparency. Slightly more CPU but pixel-perfect on every device.
 //
-// We pick the source at runtime via UA detection rather than `<source>`
-// ordering, because Safari *can* decode VP9 WebM but silently drops the alpha
-// channel, which would expose the underlying green-tinted YUV pixels.
-//
-// autoPlay requires `muted` and `playsInline` on iOS/iPadOS.
+// autoPlay requires `muted` + `playsInline` on iOS.
 
-// We need the MP4 fallback for any browser that can't decode VP9 alpha:
-//   • all iOS browsers (Safari, Chrome iOS, Edge iOS, in-app browsers like
-//     Messenger / Instagram / Twitter) — they all use WKWebView and inherit
-//     its lack of VP9 alpha support, even when the UA doesn't say "Safari"
-//   • macOS desktop Safari
-//
-// `iPad` may not appear in newer iPadOS UA strings (which masquerade as
-// macOS), so we also fall back to detecting touch + Mac.
 const detectIsSafari = (): boolean => {
   if (typeof window === "undefined") return false;
   const ua = window.navigator.userAgent;
@@ -30,16 +21,13 @@ const detectIsSafari = (): boolean => {
   if (/iPad|iPhone|iPod/.test(ua)) return true;
 
   // iPadOS 13+ identifies as Macintosh; sniff via touch capability
-  const isIPadOSAsMac =
-    /Macintosh/.test(ua) &&
-    typeof navigator !== "undefined" &&
-    (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints !==
-      undefined &&
-    (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! > 1;
-  if (isIPadOSAsMac) return true;
+  const touchPoints =
+    typeof navigator !== "undefined"
+      ? (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints
+      : 0;
+  if (/Macintosh/.test(ua) && touchPoints && touchPoints > 1) return true;
 
-  // Desktop Safari on macOS — has "Safari" but none of the major Chromium
-  // forks and not Firefox.
+  // Desktop macOS Safari (not Chrome / Edge / Brave / Firefox)
   if (
     /Safari/.test(ua) &&
     !/Chrome|Chromium|Edg|OPR|Brave|Firefox|FxiOS/.test(ua)
@@ -50,34 +38,128 @@ const detectIsSafari = (): boolean => {
   return false;
 };
 
-// SVG filter that masks dark pixels to transparent at render time. Used as a
-// runtime chroma-key for the Safari MP4 fallback, since H.264 doesn't carry
-// alpha and the encoded "black" composite background actually reads as a
-// faint brown after Safari's YUV→RGB conversion.
-const HeroVideoMaskDef: React.FC = () => (
-  <svg
-    aria-hidden
-    style={{ position: "absolute", width: 0, height: 0 }}
-    focusable={false}
-  >
-    <filter id="hero-phone-darkkey" colorInterpolationFilters="sRGB">
-      {/*
-        Sets per-pixel alpha to a function of luminance.
-        Last row: A = 4*R + 4*G + 4*B - 0.6
-          • R=G=B≈0.05 (encoded "black") → A ≈ 0   (transparent)
-          • R=G=B≈0.15 (faint glow)      → A ≈ 1.2 → 1 (opaque)
-        Result: dark composite bg disappears, phone keeps its highlights.
-      */}
-      <feColorMatrix
-        type="matrix"
-        values="1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                4 4 4 0 -0.6"
+// ── Canvas-based chroma-key video (Safari fallback) ─────────────────────────
+
+const CanvasChromaKeyVideo: React.FC<{ src: string }> = ({ src }) => {
+  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return;
+
+    let raf = 0;
+    let cancelled = false;
+
+    // Process at half-resolution for performance; CSS upscales smoothly.
+    const SCALE = 0.55;
+
+    const tick = () => {
+      if (cancelled) return;
+      if (video.readyState >= 2 && video.videoWidth > 0) {
+        const w = Math.round(video.videoWidth * SCALE);
+        const h = Math.round(video.videoHeight * SCALE);
+        if (canvas.width !== w) canvas.width = w;
+        if (canvas.height !== h) canvas.height = h;
+
+        ctx.drawImage(video, 0, 0, w, h);
+        const frame = ctx.getImageData(0, 0, w, h);
+        const d = frame.data;
+
+        // Chroma key: green is transparent. Edges fall off softly to avoid
+        // hard pixelation. Despill subtracts excess green from kept pixels.
+        for (let i = 0; i < d.length; i += 4) {
+          const r = d[i];
+          const g = d[i + 1];
+          const b = d[i + 2];
+
+          // How "greenish" the pixel is, beyond the average of R and B.
+          const greenness = g - (r + b) * 0.5;
+
+          if (greenness > 60) {
+            // Strongly green → fully transparent
+            d[i + 3] = 0;
+          } else if (greenness > 10) {
+            // Edge zone → soft alpha taper
+            const t = (greenness - 10) / 50; // 0..1
+            d[i + 3] = Math.round(255 * (1 - t));
+            // Despill: clamp the green channel to neighbour brightness
+            d[i + 1] = Math.min(g, Math.round((r + b) / 2 + 8));
+          } else if (g > r && g > b) {
+            // Mild green tint — leave alpha alone, but despill slightly
+            d[i + 1] = Math.min(g, Math.round((r + b) / 2 + 12));
+          }
+        }
+
+        ctx.putImageData(frame, 0, 0);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (raf === 0) raf = requestAnimationFrame(tick);
+    };
+
+    video.addEventListener("playing", start);
+    video.addEventListener("loadeddata", start);
+
+    // Some Safari versions need a user-gesture–free play kick after mount
+    video.play().catch(() => {
+      // If autoplay fails, the playing/loadeddata listeners will still run.
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      video.removeEventListener("playing", start);
+      video.removeEventListener("loadeddata", start);
+    };
+  }, []);
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        style={{
+          position: "absolute",
+          width: 1,
+          height: 1,
+          opacity: 0,
+          pointerEvents: "none",
+        }}
+        aria-hidden
       />
-    </filter>
-  </svg>
-);
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          width: "220%",
+          height: "auto",
+          aspectRatio: "16/9",
+          maxWidth: "none",
+          transform: "translate(-50%, -50%)",
+          display: "block",
+          pointerEvents: "none",
+        }}
+        aria-hidden
+      />
+    </>
+  );
+};
+
+// ── Main component ──────────────────────────────────────────────────────────
 
 const HeroPhoneVideo: React.FC = () => {
   const baseUrl = import.meta.env.BASE_URL;
@@ -88,43 +170,35 @@ const HeroPhoneVideo: React.FC = () => {
       className="relative w-full"
       style={{ aspectRatio: "16/9", overflow: "visible" }}
     >
-      {isSafari && <HeroVideoMaskDef />}
-      <video
-        key={isSafari ? "mp4" : "webm"}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: "50%",
-          width: "220%",
-          maxWidth: "none",
-          height: "auto",
-          transform: "translate(-50%, -50%)",
-          display: "block",
-          pointerEvents: "none",
-          // Safari fallback: H.264 has no alpha and Safari's YUV→RGB
-          // conversion gives "black" a faint brown tint. The SVG filter
-          // remaps low-luminance pixels to transparent so only the phone
-          // (bright pixels) renders.
-          filter: isSafari ? "url(#hero-phone-darkkey)" : undefined,
-        }}
-      >
-        {isSafari ? (
-          <source
-            src={`${baseUrl}videos/hero-phone.mp4`}
-            type="video/mp4"
-          />
-        ) : (
+      {isSafari ? (
+        <CanvasChromaKeyVideo
+          src={`${baseUrl}videos/hero-phone-source.mp4`}
+        />
+      ) : (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            width: "220%",
+            maxWidth: "none",
+            height: "auto",
+            transform: "translate(-50%, -50%)",
+            display: "block",
+            pointerEvents: "none",
+          }}
+        >
           <source
             src={`${baseUrl}videos/hero-phone.webm`}
             type='video/webm; codecs="vp9"'
           />
-        )}
-      </video>
+        </video>
+      )}
     </div>
   );
 };
