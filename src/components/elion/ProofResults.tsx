@@ -312,7 +312,7 @@ const cards: CardDef[] = [
   {
     tag: "Conversion Tracking",
     title: "Know exactly where visitors turn into customers",
-    description: "Know exactly where visitors turn into customers — and where they don't.",
+    description: "Know exactly where visitors turn into customers, and where they don't.",
     Viz: ConversionTrackingViz,
   },
   {
@@ -330,7 +330,7 @@ const cards: CardDef[] = [
   {
     tag: "Performance Overview",
     title: "All your key metrics in one place",
-    description: "All your key metrics in one place — clear, structured, and actionable.",
+    description: "All your key metrics in one place. Clear, structured, and actionable.",
     Viz: PerformanceOverviewViz,
   },
 ];
@@ -468,14 +468,6 @@ const ProofResults = () => {
           })}
         </div>
 
-        <ScrollFadeBlur className="mt-20 flex flex-col items-center gap-5 text-center">
-          <p className="max-w-[52ch] text-balance font-display text-2xl font-bold leading-snug tracking-tight text-bone md:text-3xl">
-            One partner. One system. Every part designed to grow with your business.
-          </p>
-          <p className="max-w-[52ch] text-balance text-sm font-medium leading-relaxed text-bone/45 md:text-base">
-            No vanity metrics, no guesswork — just a clear picture of what's working, what isn't, and where to grow next. We build the systems, you stay in control.
-          </p>
-        </ScrollFadeBlur>
       </div>
     </section>
   );

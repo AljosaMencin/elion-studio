@@ -2,7 +2,7 @@ import { AnalyticsCrop } from "@/components/elion/DeviceMockups";
 
 const quotes = [
   {
-    q: "Elion didn't just rebuild our site — they turned it into our most reliable revenue channel. We see weekly improvements without lifting a finger.",
+    q: "Elion didn't just rebuild our site. They turned it into our most reliable revenue channel. We see weekly improvements without lifting a finger.",
     a: "Maya Hartwell",
     r: "Founder, Aura Therapeutics",
   },
@@ -12,7 +12,7 @@ const quotes = [
     r: "Head of Growth, Helix",
   },
   {
-    q: "What sold us was the continuous optimization. The site we launched with isn't the one we have today — it's measurably better.",
+    q: "What sold us was the continuous optimization. The site we launched with isn't the one we have today. It's measurably better.",
     a: "Sofia Lindqvist",
     r: "CMO, Northwind Capital",
   },

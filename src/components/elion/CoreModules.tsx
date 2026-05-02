@@ -1,6 +1,6 @@
 const modules = [
   {
-    tag: "WEBSITES",
+    tag: "Web Design & SEO",
     title: "Websites",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -13,8 +13,8 @@ const modules = [
     featured: false,
   },
   {
-    tag: "SYSTEMS",
-    title: "SaaS & Tools",
+    tag: "SaaS & Tools",
+    title: "Systems",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -28,8 +28,8 @@ const modules = [
     featured: true,
   },
   {
-    tag: "GROWTH",
-    title: "Marketing",
+    tag: "Marketing",
+    title: "Strategies",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import HeroDashboardAnimation from "@/components/elion/HeroDashboardAnimation";
+import HeroPhoneVideo from "@/components/elion/HeroPhoneVideo";
 
 const StartProjectButton = () => {
   const [hovered, setHovered] = useState(false);
@@ -119,7 +119,7 @@ const Hero = () => {
               className="mt-8 max-w-[48ch] text-balance text-sm font-medium leading-relaxed text-sand/70 md:text-base animate-fade-in"
               style={{ animationDelay: "100ms" }}
             >
-              We design, build, and continuously optimize your digital ecosystem — from high-converting websites to booking systems, analytics, and growth marketing. Not a one-time project, but a system that evolves with your business.
+              We design, build, and continuously optimize your digital ecosystem, from high-converting websites to booking systems, analytics, and growth marketing. Not a one-time project, but a system that evolves with your business.
             </p>
 
             <div
@@ -149,7 +149,7 @@ const Hero = () => {
             className="w-full lg:flex-[1.15] animate-fade-in"
             style={{ animationDelay: "200ms" }}
           >
-            <HeroDashboardAnimation />
+            <HeroPhoneVideo />
           </div>
         </div>
       </div>

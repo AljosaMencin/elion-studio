@@ -271,7 +271,7 @@ const AuditPanel = () => (
               Find out where you're losing visitors.
             </div>
             <p className="mt-2 text-[11px] font-medium leading-relaxed text-bone/40">
-              Get a full audit of your site's design, speed, and conversion opportunities — free.
+              Get a full audit of your site's design, speed, and conversion opportunities. For free.
             </p>
             <a
               href="mailto:hello@elion.studio"
@@ -351,7 +351,7 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
           {SOLUTIONS_COLS.map((col) => (
             <div key={col.tag} className="pt-3 first:pt-1">
               <div className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-bone/25">
-                {col.tag} — {col.title}
+                {col.tag} · {col.title}
               </div>
               {col.items.map((item) => (
                 <a

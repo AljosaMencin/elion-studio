@@ -9,7 +9,7 @@ const features = [
       </svg>
     ),
     title: "Built for speed",
-    description: "From wireframe to live site in days, not months — without cutting corners on quality or polish.",
+    description: "From wireframe to live site in days, not months. Without cutting corners on quality or polish.",
   },
   {
     icon: (
@@ -19,7 +19,7 @@ const features = [
       </svg>
     ),
     title: "Conversion-first design",
-    description: "Every element has a job. We design for outcomes — more leads, signups, and sales — not just aesthetics.",
+    description: "Every element has a job. We design for outcomes like more leads, signups, and sales. Not just aesthetics.",
   },
   {
     icon: (
@@ -39,7 +39,7 @@ const features = [
       </svg>
     ),
     title: "Real analytics, not vanity",
-    description: "We track what matters — conversions, revenue, qualified leads — and report it clearly every month.",
+    description: "We track what matters: conversions, revenue, and qualified leads. And we report it clearly every month.",
   },
   {
     icon: (

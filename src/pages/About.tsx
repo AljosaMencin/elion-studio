@@ -258,7 +258,7 @@ const About = () => {
                   {/* History placeholder */}
                   <div className="mt-4 rounded-xl border border-dashed border-white/10 bg-white/[0.015] px-5 py-6">
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-bone/35">
-                      History — coming soon
+                      History · coming soon
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-bone/40">
                       A timeline of the studio's milestones will live here as
