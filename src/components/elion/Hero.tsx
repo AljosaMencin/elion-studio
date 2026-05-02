@@ -144,9 +144,9 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right: Visual */}
+          {/* Right: Visual — desktop only */}
           <div
-            className="w-full lg:flex-[1.15] animate-fade-in"
+            className="hidden lg:block w-full lg:flex-[1.15] animate-fade-in"
             style={{ animationDelay: "200ms" }}
           >
             <HeroPhoneVideo />
