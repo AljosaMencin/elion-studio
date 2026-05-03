@@ -90,7 +90,7 @@ const CTA = () => {
           </motion.a>
           <Link
             to="/about"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-7 py-3 text-[13px] font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
           >
             <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-colors duration-300 group-hover:border-bone/50">
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
