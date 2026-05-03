@@ -411,6 +411,28 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
       {/* Footer */}
       <div className="border-t border-white/[0.06] px-6 py-6">
         <a
+          href="#/login"
+          onClick={onClose}
+          className="mb-3 flex w-full items-center justify-center gap-3 rounded-full border border-bone/20 bg-white/[0.02] py-3.5 text-sm font-bold text-bone/80 transition-colors hover:border-bone/40 hover:bg-white/[0.05] hover:text-bone"
+        >
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+          My Dashboard
+        </a>
+        <a
           href="mailto:hello@elion.studio"
           onClick={onClose}
           className="flex w-full items-center justify-center gap-3 rounded-full bg-bone py-3.5 text-sm font-bold text-obsidian"
@@ -528,6 +550,27 @@ const Nav = () => {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
+            <a
+              href="#/login"
+              className="hidden items-center gap-2 rounded-full border border-bone/15 bg-white/[0.02] px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-bone/75 transition-all duration-300 hover:border-bone/40 hover:bg-white/[0.05] hover:text-bone lg:flex"
+            >
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                <rect x="14" y="14" width="7" height="7" rx="1.5" />
+              </svg>
+              My Dashboard
+            </a>
             <button
               onMouseEnter={() => open("audit")}
               className={`hidden rounded-full border px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 lg:flex items-center gap-2 ${

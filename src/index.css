@@ -164,3 +164,65 @@
 }
 .animate-menu-in   { animation: menu-in 0.18s cubic-bezier(0.22,1,0.36,1) both; }
 .animate-mobile-in { animation: mobile-in 0.28s cubic-bezier(0.22,1,0.36,1) both; }
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Dashboard theme tokens
+   Toggled via [data-dashboard-theme="dark"|"light"] on the shell wrapper.
+   All dashboard styling reads from these custom properties so theming is
+   a single attribute swap.
+   ─────────────────────────────────────────────────────────────────────── */
+
+[data-dashboard-theme="dark"] {
+  --d-bg:           #050507;
+  --d-bg-soft:      #0a0a0d;
+  --d-surface:      #0d0d11;
+  --d-surface-alt:  #131319;
+  --d-surface-hi:   #181820;
+  --d-border:       rgba(255,255,255,0.06);
+  --d-border-hi:    rgba(255,255,255,0.12);
+  --d-text:         rgba(245,245,240,0.95);
+  --d-text-soft:    rgba(245,245,240,0.7);
+  --d-text-muted:   rgba(245,245,240,0.45);
+  --d-text-faint:   rgba(245,245,240,0.28);
+  --d-accent:       rgba(165,180,252,0.95);
+  --d-accent-soft:  rgba(99,102,241,0.18);
+  --d-accent-bg:    rgba(99,102,241,0.12);
+  --d-positive:     rgba(52,211,153,0.95);
+  --d-shadow:       0 30px 60px -25px rgba(0,0,0,0.7);
+  --d-glow:         radial-gradient(ellipse 80% 60% at 25% 15%, rgba(99,102,241,0.18), transparent 60%),
+                    radial-gradient(ellipse 70% 60% at 80% 80%, rgba(139,92,246,0.13), transparent 55%);
+}
+
+[data-dashboard-theme="light"] {
+  --d-bg:           #f4f4f7;
+  --d-bg-soft:      #ffffff;
+  --d-surface:      #ffffff;
+  --d-surface-alt:  #f7f7fa;
+  --d-surface-hi:   #ececf2;
+  --d-border:       rgba(15,15,30,0.08);
+  --d-border-hi:    rgba(15,15,30,0.18);
+  --d-text:         rgba(15,15,30,0.92);
+  --d-text-soft:    rgba(15,15,30,0.68);
+  --d-text-muted:   rgba(15,15,30,0.5);
+  --d-text-faint:   rgba(15,15,30,0.32);
+  --d-accent:       rgba(99,102,241,0.95);
+  --d-accent-soft:  rgba(99,102,241,0.12);
+  --d-accent-bg:    rgba(99,102,241,0.08);
+  --d-positive:     rgba(16,163,127,0.95);
+  --d-shadow:       0 22px 44px -20px rgba(28,28,60,0.18);
+  --d-glow:         radial-gradient(ellipse 80% 60% at 25% 15%, rgba(99,102,241,0.10), transparent 60%),
+                    radial-gradient(ellipse 70% 60% at 80% 80%, rgba(139,92,246,0.07), transparent 55%);
+}
+
+/* Dashboard-only fonts inherit the public site's typography */
+.dashboard-shell {
+  background: var(--d-bg);
+  color: var(--d-text);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.dashboard-shell h1, .dashboard-shell h2, .dashboard-shell h3,
+.dashboard-shell h4, .dashboard-shell h5, .dashboard-shell h6 {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
