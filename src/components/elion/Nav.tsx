@@ -521,7 +521,7 @@ const Nav = () => {
             <img
               src={`${import.meta.env.BASE_URL}Text 2.png`}
               alt="Elion"
-              className="h-14 w-auto transition-opacity hover:opacity-100"
+              className="h-16 w-auto transition-opacity hover:opacity-100"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>
@@ -579,7 +579,7 @@ const Nav = () => {
                   : "border-bone/20 text-bone hover:border-bone hover:bg-bone hover:text-obsidian"
               }`}
             >
-              Get an Audit
+              Get in touch
             </button>
 
             {/* Mobile hamburger */}

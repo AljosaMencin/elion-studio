@@ -79,7 +79,7 @@ const CTA = () => {
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 320, damping: 22 }}
           >
-            <span className="relative z-10">Book a free call</span>
+            <span className="relative z-10">Get in touch</span>
             <span className="relative z-10 block h-1.5 w-1.5 rounded-full bg-obsidian/40 transition-colors group-hover:bg-obsidian" />
             <motion.span
               className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent"
@@ -88,12 +88,21 @@ const CTA = () => {
               transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.4, ease: "easeInOut" }}
             />
           </motion.a>
-          <a
-            href="mailto:hello@elion.studio"
-            className="text-sm font-semibold text-bone/40 transition-colors duration-300 hover:text-bone"
+          <Link
+            to="/about"
+            className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-7 py-3 text-[13px] font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
           >
-            Or email us directly →
-          </a>
+            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-colors duration-300 group-hover:border-bone/50">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="7" r="4" />
+                <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+                <circle cx="17" cy="7" r="3" />
+                <path d="M21 21v-2a3 3 0 0 0-2-2.83" />
+              </svg>
+            </span>
+            Meet the team
+            <span className="text-bone/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-bone/80">→</span>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -131,29 +140,6 @@ const CTA = () => {
           ))}
         </motion.div>
 
-        <motion.div
-          className="mt-10 flex justify-center"
-          variants={{
-            hidden: { opacity: 0, y: 12 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut", delay: 0.15 } },
-          }}
-        >
-          <Link
-            to="/about"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-7 py-3 text-[13px] font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
-          >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-colors duration-300 group-hover:border-bone/50">
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="9" cy="7" r="4" />
-                <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
-                <circle cx="17" cy="7" r="3" />
-                <path d="M21 21v-2a3 3 0 0 0-2-2.83" />
-              </svg>
-            </span>
-            Meet the team
-            <span className="text-bone/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-bone/80">→</span>
-          </Link>
-        </motion.div>
       </motion.div>
     </section>
   );

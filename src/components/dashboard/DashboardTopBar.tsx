@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDashboardTheme } from "@/components/dashboard/DashboardThemeProvider";
 
 interface DashboardTopBarProps {
@@ -35,12 +36,20 @@ const HamburgerIcon: React.FC = () => (
   </svg>
 );
 
+const HomeIcon: React.FC = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+
 export const DashboardTopBar: React.FC<DashboardTopBarProps> = ({
   title,
   subtitle,
   onMobileMenu,
 }) => {
   const { theme, toggleTheme } = useDashboardTheme();
+  const navigate = useNavigate();
 
   return (
     <header
