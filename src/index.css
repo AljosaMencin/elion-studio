@@ -191,6 +191,7 @@
   --d-shadow:       0 30px 60px -25px rgba(0,0,0,0.7);
   --d-glow:         radial-gradient(ellipse 80% 60% at 25% 15%, rgba(99,102,241,0.18), transparent 60%),
                     radial-gradient(ellipse 70% 60% at 80% 80%, rgba(139,92,246,0.13), transparent 55%);
+  --d-logo-filter:  brightness(0) invert(1);
 }
 
 [data-dashboard-theme="light"] {
@@ -212,6 +213,7 @@
   --d-shadow:       0 22px 44px -20px rgba(28,28,60,0.18);
   --d-glow:         radial-gradient(ellipse 80% 60% at 25% 15%, rgba(99,102,241,0.10), transparent 60%),
                     radial-gradient(ellipse 70% 60% at 80% 80%, rgba(139,92,246,0.07), transparent 55%);
+  --d-logo-filter:  brightness(0);
 }
 
 /* Dashboard-only fonts inherit the public site's typography */

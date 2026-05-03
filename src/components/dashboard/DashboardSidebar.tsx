@@ -144,13 +144,13 @@ export const DashboardSidebar: React.FC<{
     >
       {/* Brand */}
       <div
-        className="flex items-center gap-3 px-6 pb-6 pt-7"
+        className="flex items-center gap-3 px-4 pb-5 pt-5"
         style={{ borderBottom: "1px solid var(--d-border)" }}
       >
         <img
           src={`${import.meta.env.BASE_URL}Text 2.png`}
           alt="Elion"
-          className="h-9 w-auto"
+          className="h-24 w-auto -my-4"
           style={{
             filter:
               "var(--d-logo-filter, brightness(0) invert(1))",
