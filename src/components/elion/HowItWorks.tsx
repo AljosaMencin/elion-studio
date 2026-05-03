@@ -161,12 +161,6 @@ const HowItWorks = () => {
               <span className="text-bone/30">works.</span>
             </h2>
           </div>
-          <a
-            href="#contact"
-            className="self-start rounded-full border border-white/10 px-6 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-bone/60 transition-all duration-300 hover:border-white/20 hover:text-bone md:self-auto"
-          >
-            Book a free call
-          </a>
         </ScrollFadeBlur>
 
         <div ref={sectionRef} className="relative">
