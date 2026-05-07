@@ -19,8 +19,11 @@ type Service = {
   tag: string;
   title: string;
   lead: string;
+  detail: string;
   highlights: string[];
   metrics: { value: string; label: string }[];
+  process: { step: string; title: string; description: string }[];
+  useCases: string[];
   graphic: React.ReactNode;
   accent: string;
 };
@@ -31,17 +34,45 @@ const SERVICES: Service[] = [
     index: "01",
     tag: "Web Design & SEO",
     title: "Websites that earn their keep.",
-    lead: "Modern, fast, conversion-focused — built to look great and rank higher.",
+    lead: "Modern, fast and conversion-focused. Built to look great and rank higher.",
+    detail:
+      "We start from your funnel, not a template. Every page earns its spot, every component is measured. Launch is the beginning, not the finish line: pages tighten, copy sharpens, and Core Web Vitals stay green long after handoff.",
     highlights: [
       "Custom design & development",
       "Responsive & SEO-friendly",
       "Performance-optimized",
       "Built on the right stack",
+      "Continuous improvement after launch",
+      "Analytics & conversion tracking",
     ],
     metrics: [
       { value: "0.4s", label: "Load time" },
       { value: "98", label: "PageSpeed" },
       { value: "3×", label: "More leads" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Audit & strategy",
+        description: "Map the funnel, find the gaps, agree on the metric we move.",
+      },
+      {
+        step: "02",
+        title: "Design & build",
+        description: "Custom UI, fast stack, accessible markup, content that converts.",
+      },
+      {
+        step: "03",
+        title: "Ship & optimize",
+        description: "Real-user metrics, monthly tune-ups, a roadmap that compounds.",
+      },
+    ],
+    useCases: [
+      "Marketing site",
+      "SaaS product site",
+      "E-commerce",
+      "Landing page",
+      "Portfolio",
     ],
     graphic: <WebsiteGraphic />,
     accent: "rgba(165,180,252,0.55)",
@@ -51,17 +82,45 @@ const SERVICES: Service[] = [
     index: "02",
     tag: "SaaS & Tools",
     title: "Operating systems for your business.",
-    lead: "Booking, dashboards, automations — set up once, work for you forever.",
+    lead: "Booking, dashboards and automations. Set up once, working for you forever.",
+    detail:
+      "We replace spreadsheets, sticky notes and \"someone will remember\" with one connected system. Bookings flow into your calendar, sales flow into your dashboard, and your team gets out of the inbox and back to the work that matters.",
     highlights: [
       "Real-time booking & calendars",
       "Custom KPI dashboards",
       "Automations & integrations",
       "Multi-site content hub",
+      "Notifications & reminders",
+      "Roles, permissions, audit trail",
     ],
     metrics: [
       { value: "24/7", label: "Always on" },
       { value: "−40%", label: "Admin time" },
       { value: "1×", label: "Source of truth" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Map the workflow",
+        description: "Where time leaks, where errors happen, what to automate first.",
+      },
+      {
+        step: "02",
+        title: "Build the system",
+        description: "Booking, dashboard, content hub, or all three, wired to your data.",
+      },
+      {
+        step: "03",
+        title: "Connect & automate",
+        description: "Stripe, calendars, email and the tools you already pay for.",
+      },
+    ],
+    useCases: [
+      "Restaurants",
+      "Clinics & salons",
+      "Studios & agencies",
+      "Sports venues",
+      "Multi-location brands",
     ],
     graphic: <SystemsGraphic />,
     accent: "rgba(167,139,250,0.55)",
@@ -71,17 +130,45 @@ const SERVICES: Service[] = [
     index: "03",
     tag: "Marketing",
     title: "Strategies that move numbers.",
-    lead: "Less guessing, more compounding wins — every move tied to real data.",
+    lead: "Less guessing, more compounding wins. Every move tied to real data.",
+    detail:
+      "We instrument every page, every channel and every conversion event so growth becomes measurable instead of mystical. Then we run experiments with real budget on the line, and double down on the channels that compound.",
     highlights: [
       "Tracking & analytics setup",
       "Custom growth dashboards",
       "Conversion & behavior analysis",
       "Actionable recommendations",
+      "SEO, content & paid channel mix",
+      "Weekly or monthly reporting",
     ],
     metrics: [
       { value: "4.2×", label: "Traffic" },
       { value: "+87%", label: "Conversions" },
       { value: "Q1→Q3", label: "Compounding" },
+    ],
+    process: [
+      {
+        step: "01",
+        title: "Measure",
+        description: "Tracking, dashboards and a clean baseline for every channel.",
+      },
+      {
+        step: "02",
+        title: "Analyze",
+        description: "Find the leak, find the lever, prioritize by impact.",
+      },
+      {
+        step: "03",
+        title: "Compound",
+        description: "Test, ship, double down on what works, kill what doesn't.",
+      },
+    ],
+    useCases: [
+      "SEO & content",
+      "Paid ads",
+      "Conversion rate",
+      "Retention & email",
+      "Funnel analytics",
     ],
     graphic: <GrowthGraphic />,
     accent: "rgba(110,231,183,0.5)",
@@ -91,124 +178,203 @@ const SERVICES: Service[] = [
 // ── Section ─────────────────────────────────────────────────────────────────
 
 const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) => {
+  // Pre-compute accent variants so the JSX stays readable.
+  const baseOpacity = service.accent.match(/0\.5\d/)?.[0] || "0.55";
+  const accentSoft = service.accent.replace(baseOpacity, "0.18");
+  const accentMid = service.accent.replace(baseOpacity, "0.4");
+  const accentSolid = service.accent.replace(baseOpacity, "1");
+  const accentStrong = service.accent.replace(baseOpacity, "0.85");
+
   return (
     <section
       id={service.id}
       className="relative scroll-mt-32 px-6 py-24 md:px-12 md:py-36"
     >
-      <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-20">
-        {/* Copy */}
-        <ScrollFadeBlur
-          className={`relative lg:col-span-5 ${flip ? "lg:order-2" : ""}`}
-        >
-          {/* Giant ghost index */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-12 -left-2 select-none font-display text-[10rem] font-bold leading-none text-bone/[0.04] md:-top-20 md:text-[14rem]"
+      <div className="mx-auto max-w-[1320px]">
+        {/* Top — copy + graphic */}
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-20">
+          {/* Copy */}
+          <ScrollFadeBlur
+            className={`relative lg:col-span-5 ${flip ? "lg:order-2" : ""}`}
           >
-            {service.index}
-          </span>
+            {/* Giant ghost index */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -top-12 -left-2 select-none font-display text-[10rem] font-bold leading-none text-bone/[0.04] md:-top-20 md:text-[14rem]"
+            >
+              {service.index}
+            </span>
 
-          <div className="relative">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-bone/65">
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: service.accent }}
-              />
-              {service.tag}
-            </div>
+            <div className="relative">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-bone/65">
+                <span
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ background: service.accent }}
+                />
+                {service.tag}
+              </div>
 
-            <h2 className="font-display text-4xl font-bold leading-[1.04] tracking-tight text-bone md:text-6xl">
-              {service.title}
-            </h2>
+              <h2 className="font-display text-4xl font-bold leading-[1.04] tracking-tight text-bone md:text-6xl">
+                {service.title}
+              </h2>
 
-            <p className="mt-6 max-w-[40ch] text-base font-medium leading-relaxed text-bone/60 md:text-lg">
-              {service.lead}
-            </p>
+              <p className="mt-6 max-w-[40ch] text-base font-medium leading-relaxed text-bone/65 md:text-lg">
+                {service.lead}
+              </p>
 
-            {/* Highlights — compact 2-column */}
-            <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {service.highlights.map((h, i) => (
-                <motion.li
-                  key={h}
-                  initial={{ opacity: 0, x: -8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="flex items-center gap-2.5 text-[13px] font-medium text-bone/75"
-                >
-                  <span
-                    className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
-                    style={{
-                      background: service.accent.replace("0.55", "0.18").replace("0.5", "0.18"),
-                      border: `1px solid ${service.accent.replace("0.55", "0.4").replace("0.5", "0.4")}`,
-                    }}
+              <p className="mt-5 max-w-[44ch] text-sm font-medium leading-relaxed text-bone/45">
+                {service.detail}
+              </p>
+
+              {/* Highlights — 2-column */}
+              <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {service.highlights.map((h, i) => (
+                  <motion.li
+                    key={h}
+                    initial={{ opacity: 0, x: -8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.4, delay: i * 0.04 }}
+                    className="flex items-center gap-2.5 text-[13px] font-medium text-bone/75"
                   >
-                    <svg
-                      width="9"
-                      height="9"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      style={{ color: service.accent.replace(/0\.5\d/, "1") }}
+                    <span
+                      className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                      style={{
+                        background: accentSoft,
+                        border: `1px solid ${accentMid}`,
+                      }}
                     >
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </span>
-                  {h}
-                </motion.li>
-              ))}
-            </ul>
+                      <svg
+                        width="9"
+                        height="9"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{ color: accentSolid }}
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </span>
+                    {h}
+                  </motion.li>
+                ))}
+              </ul>
 
-            {/* Metrics row */}
-            <div className="mt-10 flex items-stretch divide-x divide-white/[0.06] rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-              {service.metrics.map((m, i) => (
-                <motion.div
-                  key={m.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                  className="flex flex-1 flex-col items-start px-4 py-4"
-                >
-                  <span
-                    className="font-display text-2xl font-bold tracking-tight text-bone md:text-3xl"
-                    style={{
-                      backgroundImage: `linear-gradient(180deg, hsl(0 0% 98%), ${service.accent.replace(/0\.5\d/, "0.85")})`,
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+              {/* Metrics row */}
+              <div className="mt-10 flex items-stretch divide-x divide-white/[0.06] rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+                {service.metrics.map((m, i) => (
+                  <motion.div
+                    key={m.label}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+                    className="flex flex-1 flex-col items-start px-4 py-4"
                   >
-                    {m.value}
-                  </span>
-                  <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-bone/40">
-                    {m.label}
-                  </span>
-                </motion.div>
-              ))}
+                    <span
+                      className="font-display text-2xl font-bold tracking-tight text-bone md:text-3xl"
+                      style={{
+                        backgroundImage: `linear-gradient(180deg, hsl(0 0% 98%), ${accentStrong})`,
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      {m.value}
+                    </span>
+                    <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-bone/40">
+                      {m.label}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
+          </ScrollFadeBlur>
+
+          {/* Graphic */}
+          <ScrollFadeBlur
+            className={`lg:col-span-7 ${flip ? "lg:order-1" : ""}`}
+          >
+            <div className="relative">
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute -inset-10 rounded-full blur-3xl"
+                style={{
+                  background: `radial-gradient(circle, ${service.accent}, transparent 60%)`,
+                }}
+                animate={{ opacity: [0.25, 0.45, 0.25] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <div className="relative">{service.graphic}</div>
+            </div>
+          </ScrollFadeBlur>
+        </div>
+
+        {/* Process — full-width below the grid */}
+        <ScrollFadeBlur className="mt-20 md:mt-28">
+          <div className="mb-8 flex items-center gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
+              How it works
+            </span>
+            <span className="h-px flex-1 bg-gradient-to-r from-bone/15 to-transparent" />
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {service.process.map((p, i) => (
+              <motion.div
+                key={p.step}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-colors duration-300 hover:border-white/[0.12]"
+              >
+                {/* Accent bar */}
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-px"
+                  style={{
+                    background: `linear-gradient(to right, transparent, ${accentSolid}, transparent)`,
+                    opacity: 0.5,
+                  }}
+                />
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className="font-display text-3xl font-bold leading-none"
+                    style={{ color: accentSolid }}
+                  >
+                    {p.step}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-bone/40">
+                    Step {i + 1}
+                  </span>
+                </div>
+                <h4 className="mt-3 font-display text-xl font-bold tracking-tight text-bone">
+                  {p.title}
+                </h4>
+                <p className="mt-2 text-[13px] font-medium leading-relaxed text-bone/55">
+                  {p.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </ScrollFadeBlur>
 
-        {/* Graphic */}
-        <ScrollFadeBlur
-          className={`lg:col-span-7 ${flip ? "lg:order-1" : ""}`}
-        >
-          <div className="relative">
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute -inset-10 rounded-full blur-3xl"
-              style={{
-                background: `radial-gradient(circle, ${service.accent}, transparent 60%)`,
-              }}
-              animate={{ opacity: [0.25, 0.45, 0.25] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <div className="relative">{service.graphic}</div>
-          </div>
+        {/* Use cases */}
+        <ScrollFadeBlur className="mt-12 flex flex-wrap items-center gap-3">
+          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-bone/35">
+            Built for
+          </span>
+          {service.useCases.map((u) => (
+            <span
+              key={u}
+              className="rounded-full border border-bone/12 bg-white/[0.02] px-3 py-1.5 text-[11px] font-semibold text-bone/70"
+            >
+              {u}
+            </span>
+          ))}
         </ScrollFadeBlur>
       </div>
 
@@ -307,7 +473,7 @@ const Services = () => {
                 <span className="text-bone/30">grow your business.</span>
               </h1>
               <p className="mt-7 max-w-[48ch] text-balance text-base font-medium leading-relaxed text-bone/55 md:text-lg">
-                Pick a track — or stitch all three into a complete growth system.
+                Pick a track. Or stitch all three into a complete growth system.
               </p>
             </ScrollFadeBlur>
 
