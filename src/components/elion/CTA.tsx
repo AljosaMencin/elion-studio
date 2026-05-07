@@ -78,12 +78,26 @@ const CTA = () => {
           <motion.button
             type="button"
             onClick={open}
-            className="group relative flex items-center gap-4 overflow-hidden rounded-full bg-bone px-10 py-4 text-sm font-bold text-obsidian shadow-soft"
+            className="group relative flex items-center gap-3 overflow-hidden rounded-full bg-bone px-10 py-4 text-sm font-bold text-obsidian shadow-soft"
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 320, damping: 22 }}
           >
             <span className="relative z-10">Get in touch</span>
-            <span className="relative z-10 block h-1.5 w-1.5 rounded-full bg-obsidian/40 transition-colors group-hover:bg-obsidian" />
+            <svg
+              className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
             <motion.span
               className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent"
               initial={{ x: "-150%" }}
@@ -93,9 +107,10 @@ const CTA = () => {
           </motion.button>
           <Link
             to="/about"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
+            className="group inline-flex items-center gap-3 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"
           >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-colors duration-300 group-hover:border-bone/50">
+            Meet the team
+            <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-bone/50">
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="7" r="4" />
                 <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
@@ -103,8 +118,6 @@ const CTA = () => {
                 <path d="M21 21v-2a3 3 0 0 0-2-2.83" />
               </svg>
             </span>
-            Meet the team
-            <span className="text-bone/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-bone/80">→</span>
           </Link>
         </motion.div>
 

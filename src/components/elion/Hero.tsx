@@ -1,59 +1,44 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import HeroPhoneVideo from "@/components/elion/HeroPhoneVideo";
 import { useGetInTouch } from "@/components/elion/GetInTouchDrawer";
 
 const StartProjectButton = () => {
-  const [hovered, setHovered] = useState(false);
   const { open } = useGetInTouch();
   return (
-    <button
+    <motion.button
       type="button"
       onClick={open}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-bone px-8 py-4 text-sm font-bold text-obsidian shadow-soft transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-indigo-300 hover:text-obsidian sm:w-auto"
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: "spring", stiffness: 320, damping: 22 }}
+      className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-bone px-10 py-4 text-sm font-bold text-obsidian shadow-soft sm:w-auto"
     >
-      <span className="relative inline-flex h-4 w-5 items-center justify-center">
-        <motion.svg
-          width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          className="absolute"
-          initial={false}
-          animate={
-            hovered
-              ? { rotate: -20, x: -1, opacity: 1 }
-              : { rotate: -10, x: 0, opacity: 0.65 }
-          }
-          transition={{ duration: 0.28, ease: "easeOut" }}
-        >
-          <path d="M14 6l6 6-3 3-6-6z" />
-          <path d="M11 9L3 17l3 3 8-8" />
-        </motion.svg>
-        <motion.svg
-          width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-          className="absolute"
-          initial={false}
-          animate={
-            hovered
-              ? { rotate: 25, x: 1, opacity: 1 }
-              : { rotate: 12, x: 0, opacity: 0.65 }
-          }
-          transition={{ duration: 0.28, ease: "easeOut", delay: 0.04 }}
-        >
-          <path d="M3 21l4-4" />
-          <path d="M14 4l6 6-3 3-6-6z" />
-          <path d="M9 11l-2 2 3 3 2-2" />
-        </motion.svg>
-      </span>
-      Start a project
-    </button>
+      <span className="relative z-10">Start a project</span>
+      <svg
+        className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="12 5 19 12 12 19" />
+      </svg>
+      <motion.span
+        className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/60 to-transparent"
+        initial={{ x: "-150%" }}
+        animate={{ x: "350%" }}
+        transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.4, ease: "easeInOut" }}
+      />
+    </motion.button>
   );
 };
 
 const SeeHowButton = () => {
-  const [hovered, setHovered] = useState(false);
   const scrollToHow = () => {
     document
       .getElementById("how-it-works")
@@ -63,44 +48,11 @@ const SeeHowButton = () => {
     <button
       type="button"
       onClick={scrollToHow}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border border-bone/25 bg-white/[0.02] px-8 py-4 text-sm font-bold text-bone transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-bone/60 hover:bg-white/[0.06] sm:w-auto"
+      className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/80 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone sm:w-auto"
     >
       See how it works
-      <span className="relative inline-flex h-4 w-[22px] items-center justify-center font-mono text-[13px]">
-        <motion.span
-          className="inline-flex items-center"
-          initial={false}
-          animate={hovered ? { x: -2, opacity: 1 } : { x: 0, opacity: 0.65 }}
-          transition={{ duration: 0.22, ease: "easeOut" }}
-        >
-          {"<"}
-        </motion.span>
-        <motion.span
-          className="text-[10px]"
-          initial={false}
-          animate={
-            hovered
-              ? { opacity: [0.4, 1, 0.5, 1], scale: 1 }
-              : { opacity: 0.55, scale: 0.95 }
-          }
-          transition={
-            hovered
-              ? { duration: 0.7, ease: "easeOut" }
-              : { duration: 0.22, ease: "easeOut" }
-          }
-        >
-          /
-        </motion.span>
-        <motion.span
-          className="inline-flex items-center"
-          initial={false}
-          animate={hovered ? { x: 2, opacity: 1 } : { x: 0, opacity: 0.65 }}
-          transition={{ duration: 0.22, ease: "easeOut" }}
-        >
-          {">"}
-        </motion.span>
+      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 font-mono text-[10px] text-bone/70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-bone/50 group-hover:text-bone">
+        {"</>"}
       </span>
     </button>
   );
