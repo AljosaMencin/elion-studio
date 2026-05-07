@@ -16,6 +16,7 @@ import GrowthGraphic from "@/components/elion/services/GrowthGraphic";
 type Service = {
   id: "websites" | "systems" | "growth";
   index: string;
+  name: string;
   tag: string;
   title: string;
   lead: string;
@@ -32,6 +33,7 @@ const SERVICES: Service[] = [
   {
     id: "websites",
     index: "01",
+    name: "Websites",
     tag: "Web Design & SEO",
     title: "Websites that earn their keep.",
     lead: "Modern, fast and conversion-focused. Built to look great and rank higher.",
@@ -80,6 +82,7 @@ const SERVICES: Service[] = [
   {
     id: "systems",
     index: "02",
+    name: "Systems",
     tag: "SaaS & Tools",
     title: "Operating systems for your business.",
     lead: "Booking, dashboards and automations. Set up once, working for you forever.",
@@ -128,6 +131,7 @@ const SERVICES: Service[] = [
   {
     id: "growth",
     index: "03",
+    name: "Strategies",
     tag: "Marketing",
     title: "Strategies that move numbers.",
     lead: "Less guessing, more compounding wins. Every move tied to real data.",
@@ -493,7 +497,7 @@ const Services = () => {
                   <span className="font-mono text-bone/40 group-hover:text-bone/80">
                     {s.index}
                   </span>
-                  {s.tag}
+                  {s.name}
                   <span className="text-bone/40 transition-transform duration-300 group-hover:translate-y-0.5 group-hover:text-bone">
                     ↓
                   </span>
