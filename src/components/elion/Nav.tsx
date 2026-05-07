@@ -524,24 +524,24 @@ const Nav = () => {
             <img
               src={`${import.meta.env.BASE_URL}Text 2.png`}
               alt="Elion"
-              className="h-20 w-auto transition-opacity hover:opacity-100"
+              className="h-24 w-auto transition-opacity hover:opacity-100 md:h-28"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>
 
           {/* Desktop links */}
-          <div className="hidden items-center gap-1.5 lg:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             {navItems.map(({ id, label }) => (
               <button
                 key={id}
                 onMouseEnter={() => open(id)}
-                className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium transition-colors duration-200 ${
+                className={`flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium transition-colors duration-200 ${
                   active === id ? "bg-white/6 text-bone" : "text-bone/55 hover:text-bone"
                 }`}
               >
                 {label}
                 <svg
-                  width="13" height="13" viewBox="0 0 24 24" fill="none"
+                  width="14" height="14" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
                   className={`transition-transform duration-200 ${active === id ? "rotate-180" : ""}`}
                 >
@@ -552,14 +552,14 @@ const Nav = () => {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-4">
             <a
               href="#/login"
-              className="hidden items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-5 py-3 text-[12px] font-bold uppercase tracking-[0.18em] text-bone/75 transition-all duration-300 hover:border-bone/40 hover:bg-white/[0.05] hover:text-bone lg:flex"
+              className="hidden items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-bone/75 transition-all duration-300 hover:border-bone/40 hover:bg-white/[0.05] hover:text-bone lg:flex"
             >
               <svg
-                width="13"
-                height="13"
+                width="15"
+                height="15"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -576,7 +576,7 @@ const Nav = () => {
             </a>
             <button
               onClick={() => { setActive(null); openContact(); }}
-              className="hidden rounded-full border border-bone/20 px-6 py-3 text-[12px] font-bold uppercase tracking-[0.18em] text-bone transition-all duration-300 hover:border-bone hover:bg-bone hover:text-obsidian lg:flex items-center gap-2"
+              className="hidden rounded-full border border-bone/20 px-7 py-3.5 text-[13px] font-bold uppercase tracking-[0.18em] text-bone transition-all duration-300 hover:border-bone hover:bg-bone hover:text-obsidian lg:flex items-center gap-2"
             >
               Get in touch
             </button>
@@ -584,12 +584,12 @@ const Nav = () => {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(true)}
-              className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/10 lg:hidden"
+              className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 rounded-full border border-white/10 lg:hidden"
               aria-label="Open menu"
             >
-              <span className="h-px w-5 bg-bone/70" />
-              <span className="h-px w-5 bg-bone/70" />
-              <span className="h-px w-3 bg-bone/70" />
+              <span className="h-px w-6 bg-bone/70" />
+              <span className="h-px w-6 bg-bone/70" />
+              <span className="h-px w-3.5 bg-bone/70" />
             </button>
           </div>
         </nav>
