@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import HeroPhoneVideo from "@/components/elion/HeroPhoneVideo";
 import { useGetInTouch } from "@/components/elion/GetInTouchDrawer";
 
-const StartProjectButton = () => {
+const GetInTouchButton = () => {
   const { open } = useGetInTouch();
   return (
     <motion.button
@@ -12,7 +13,7 @@ const StartProjectButton = () => {
       transition={{ type: "spring", stiffness: 320, damping: 22 }}
       className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-bone px-10 py-4 text-sm font-bold text-obsidian shadow-soft sm:w-auto"
     >
-      <span className="relative z-10">Start a project</span>
+      <span className="relative z-10">Get in touch</span>
       <svg
         className="relative z-10 transition-transform duration-300 group-hover:translate-x-0.5"
         width="14"
@@ -38,25 +39,31 @@ const StartProjectButton = () => {
   );
 };
 
-const SeeHowButton = () => {
-  const scrollToHow = () => {
-    document
-      .getElementById("how-it-works")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-  return (
-    <button
-      type="button"
-      onClick={scrollToHow}
-      className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/80 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone sm:w-auto"
-    >
-      See how it works
-      <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 font-mono text-[10px] text-bone/70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-bone/50 group-hover:text-bone">
-        {"</>"}
-      </span>
-    </button>
-  );
-};
+const MeetTheTeamButton = () => (
+  <Link
+    to="/about"
+    className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/80 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone sm:w-auto"
+  >
+    Meet the team
+    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-bone/20 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-bone/50">
+      <svg
+        width="9"
+        height="9"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="9" cy="7" r="4" />
+        <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
+        <circle cx="17" cy="7" r="3" />
+        <path d="M21 21v-2a3 3 0 0 0-2-2.83" />
+      </svg>
+    </span>
+  </Link>
+);
 
 const Hero = () => {
   return (
@@ -83,8 +90,8 @@ const Hero = () => {
             >
               {/* Button row — stacks on mobile, side-by-side from sm: */}
               <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 lg:w-auto">
-                <StartProjectButton />
-                <SeeHowButton />
+                <GetInTouchButton />
+                <MeetTheTeamButton />
               </div>
 
               {/* Trust strip — column on mobile (centered, consistent left edge),
