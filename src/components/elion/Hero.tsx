@@ -124,32 +124,25 @@ const Hero = () => {
               <span className="text-bone/30">foundation for business growth.</span>
             </h1>
 
-            <p
-              className="mt-8 max-w-[48ch] text-balance text-sm font-medium leading-relaxed text-sand/70 md:text-base animate-fade-in"
-              style={{ animationDelay: "100ms" }}
-            >
-              We design, build, and continuously optimize your digital ecosystem, from high-converting websites to booking systems, analytics, and growth marketing. Not a one-time project, but a system that evolves with your business.
-            </p>
+            {/* Buttons + trust strip share a container so they line up */}
+            <div className="mt-12 flex flex-col items-stretch gap-5 animate-fade-in" style={{ animationDelay: "180ms" }}>
+              <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <StartProjectButton />
+                <SeeHowButton />
+              </div>
 
-            <div
-              className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:items-start animate-fade-in"
-              style={{ animationDelay: "180ms" }}
-            >
-              <StartProjectButton />
-              <SeeHowButton />
-            </div>
-
-            {/* Trust strip */}
-            <div
-              className="mt-12 flex items-center gap-6 animate-fade-in"
-              style={{ animationDelay: "260ms" }}
-            >
-              {["14-day launch", "No lock-in", "Results guaranteed"].map((t) => (
-                <div key={t} className="flex items-center gap-2 text-[11px] font-medium text-bone/40">
-                  <span className="h-1 w-1 rounded-full bg-bone/20" />
-                  {t}
-                </div>
-              ))}
+              {/* Trust strip — same width as the button row, items spread end-to-end */}
+              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-1">
+                {["14-day launch", "No lock-in", "Results guaranteed"].map((t) => (
+                  <div
+                    key={t}
+                    className="flex items-center gap-2 text-[13px] font-semibold text-bone/55 md:text-sm"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/70 shadow-[0_0_8px_rgba(129,140,248,0.6)]" />
+                    {t}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
