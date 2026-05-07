@@ -35,7 +35,6 @@ type FormState = {
   company: string;
   role: string;
   goal: string;
-  budget: string;
   message: string;
   consent: boolean;
 };
@@ -46,7 +45,6 @@ const EMPTY_FORM: FormState = {
   company: "",
   role: "",
   goal: "",
-  budget: "",
   message: "",
   consent: false,
 };
@@ -58,8 +56,6 @@ const GOALS = [
   "Marketing & growth",
   "Not sure yet",
 ];
-
-const BUDGETS = ["< $5k", "$5k – $15k", "$15k – $40k", "$40k+", "Open"];
 
 // ── Floating-label input ─────────────────────────────────────────────────────
 
@@ -394,13 +390,6 @@ const Drawer = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =
                     options={GOALS}
                     value={form.goal}
                     onChange={(v) => update("goal", v)}
-                  />
-
-                  <ChipGroup
-                    label="Budget"
-                    options={BUDGETS}
-                    value={form.budget}
-                    onChange={(v) => update("budget", v)}
                   />
 
                   <Field
