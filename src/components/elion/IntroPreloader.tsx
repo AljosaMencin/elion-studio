@@ -15,7 +15,7 @@ const IntroPreloader = () => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050505] animate-preloader-exit">
       <img 
-        src={`${import.meta.env.BASE_URL}Text 2.png`} 
+        src={`${import.meta.env.BASE_URL}Text 2.v1.png`} 
         alt="Elion" 
         className="w-48 md:w-80 animate-preloader-logo-refined" 
         style={{ filter: "brightness(0) invert(1)" }}

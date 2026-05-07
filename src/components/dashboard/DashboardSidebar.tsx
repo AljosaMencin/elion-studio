@@ -148,7 +148,7 @@ export const DashboardSidebar: React.FC<{
         style={{ borderBottom: "1px solid var(--d-border)" }}
       >
         <img
-          src={`${import.meta.env.BASE_URL}Text 2.png`}
+          src={`${import.meta.env.BASE_URL}Text 2.v1.png`}
           alt="Elion"
           className="h-24 w-auto -my-4"
           style={{

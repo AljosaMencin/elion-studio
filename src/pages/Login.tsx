@@ -79,7 +79,7 @@ const Login: React.FC = () => {
           {/* Brand mark */}
           <div className="mb-9 flex flex-col items-center gap-5">
             <img
-              src={`${import.meta.env.BASE_URL}Text 2.png`}
+              src={`${import.meta.env.BASE_URL}Text 2.v1.png`}
               alt="Elion"
               className="h-16 w-auto"
               style={{ filter: "brightness(0) invert(1)" }}

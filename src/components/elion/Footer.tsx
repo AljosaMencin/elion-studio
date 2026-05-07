@@ -6,7 +6,7 @@ const Footer = () => {
           <div className="col-span-2">
             <a href="#" className="flex items-center gap-2">
               <img 
-                src={`${import.meta.env.BASE_URL}Text 2.png`} 
+                src={`${import.meta.env.BASE_URL}Text 2.v1.png`} 
                 alt="Elion" 
                 className="h-[200px] w-auto opacity-90 transition-opacity hover:opacity-100" 
                 style={{ filter: "brightness(0) invert(1)" }}

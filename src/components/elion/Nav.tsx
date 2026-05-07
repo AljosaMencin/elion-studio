@@ -328,7 +328,7 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-5">
         <img
-          src={`${import.meta.env.BASE_URL}Text 2.png`}
+          src={`${import.meta.env.BASE_URL}Text 2.v1.png`}
           alt="Elion"
           className="h-12 w-auto"
           style={{ filter: "brightness(0) invert(1)" }}
@@ -522,7 +522,7 @@ const Nav = () => {
           {/* Logo */}
           <a href="#" className="flex-shrink-0">
             <img
-              src={`${import.meta.env.BASE_URL}Text 2.png`}
+              src={`${import.meta.env.BASE_URL}Text 2.v1.png`}
               alt="Elion"
               className="h-24 w-auto transition-opacity hover:opacity-100 md:h-28"
               style={{ filter: "brightness(0) invert(1)" }}
