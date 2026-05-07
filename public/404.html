@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Elion</title>
+    <script>
+      // GitHub Pages SPA redirect: rewrite the unknown path into a hash so
+      // HashRouter can pick it up after the redirect to /elion-studio/.
+      (function () {
+        var base = "/elion-studio/";
+        var path = location.pathname;
+        var rest = path.indexOf(base) === 0 ? path.slice(base.length) : path.slice(1);
+        var hash = location.hash || "";
+        var search = location.search || "";
+        var target = location.origin + base;
+        if (rest || search) {
+          target += "#/" + rest + search + (hash ? hash : "");
+        } else if (hash) {
+          target += hash;
+        }
+        location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
