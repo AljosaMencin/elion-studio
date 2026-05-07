@@ -17,7 +17,7 @@ const IntroPreloader = () => {
       <img 
         src={`${import.meta.env.BASE_URL}Text 2.png`} 
         alt="Elion" 
-        className="w-48 md:w-80 animate-preloader-logo-refined" 
+        className="w-56 md:w-96 animate-preloader-logo-refined"
         style={{ filter: "brightness(0) invert(1)" }}
       />
     </div>

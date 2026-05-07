@@ -330,7 +330,7 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
         <img
           src={`${import.meta.env.BASE_URL}Text 2.png`}
           alt="Elion"
-          className="h-12 w-auto"
+          className="h-7 w-auto"
           style={{ filter: "brightness(0) invert(1)" }}
         />
         <button
@@ -524,7 +524,7 @@ const Nav = () => {
             <img
               src={`${import.meta.env.BASE_URL}Text 2.png`}
               alt="Elion"
-              className="h-24 w-auto transition-opacity hover:opacity-100 md:h-28"
+              className="h-9 w-auto transition-opacity hover:opacity-100 md:h-11"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>

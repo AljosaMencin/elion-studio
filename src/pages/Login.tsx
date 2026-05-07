@@ -81,7 +81,7 @@ const Login: React.FC = () => {
             <img
               src={`${import.meta.env.BASE_URL}Text 2.png`}
               alt="Elion"
-              className="h-16 w-auto"
+              className="h-10 w-auto"
               style={{ filter: "brightness(0) invert(1)" }}
             />
             <div className="flex flex-col items-center gap-2 text-center">

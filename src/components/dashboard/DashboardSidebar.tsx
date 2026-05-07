@@ -150,7 +150,7 @@ export const DashboardSidebar: React.FC<{
         <img
           src={`${import.meta.env.BASE_URL}Text 2.png`}
           alt="Elion"
-          className="h-24 w-auto -my-4"
+          className="h-10 w-auto"
           style={{
             filter:
               "var(--d-logo-filter, brightness(0) invert(1))",
