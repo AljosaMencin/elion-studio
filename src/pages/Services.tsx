@@ -532,7 +532,9 @@ const Services = () => {
                     The complete system
                   </p>
                   <h3 className="max-w-[22ch] font-display text-3xl font-bold leading-tight tracking-tight text-bone md:text-5xl">
-                    Design, tech, data and strategy. One partner.
+                    Design, data and strategy.
+                    <br />
+                    One partner.
                   </h3>
                 </div>
 
