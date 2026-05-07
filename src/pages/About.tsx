@@ -117,7 +117,7 @@ const About = () => {
       <AnimatedBackdrop />
       <Nav />
 
-      <main className="relative z-10 pt-40 md:pt-48">
+      <main className="relative z-10 pt-32 md:pt-40">
         {/* ── Section 1 — Intro / Vision ───────────────────────────────────── */}
         <section className="relative px-6 pb-24 md:px-12 md:pb-32">
           <div className="mx-auto max-w-[1440px]">

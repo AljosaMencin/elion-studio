@@ -518,13 +518,13 @@ const Nav = () => {
         }`}
         onMouseLeave={scheduleClose}
       >
-        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10 md:py-6">
+        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-2 md:px-10 md:py-2">
           {/* Logo */}
           <a href="#" className="flex-shrink-0">
             <img
               src={`${import.meta.env.BASE_URL}Text 2.png`}
               alt="Elion"
-              className="h-20 w-auto transition-opacity hover:opacity-100 md:h-24"
+              className="h-20 w-auto transition-opacity hover:opacity-100"
               style={{ filter: "brightness(0) invert(1)" }}
             />
           </a>

@@ -67,7 +67,7 @@ const MeetTheTeamButton = () => (
 
 const Hero = () => {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-6 pb-20 pt-40 md:px-12 md:pt-44">
+    <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-6 pb-20 pt-32 md:px-12">
       <div className="relative z-10 w-full max-w-[1440px]">
         <div className="flex flex-col items-center gap-16 lg:flex-row lg:items-center lg:gap-20">
 
