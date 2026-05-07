@@ -8,7 +8,7 @@ const Footer = () => {
               <img 
                 src={`${import.meta.env.BASE_URL}Text 2.png`} 
                 alt="Elion" 
-                className="h-12 w-auto opacity-90 transition-opacity hover:opacity-100 md:h-16"
+                className="h-[200px] w-auto opacity-90 transition-opacity hover:opacity-100" 
                 style={{ filter: "brightness(0) invert(1)" }}
               />
             </a>
