@@ -12,7 +12,7 @@ const StartProjectButton = () => {
       onClick={open}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-bone/30 bg-transparent px-8 py-4 text-sm font-bold text-bone transition-colors duration-300 ease-out hover:border-indigo-300 hover:bg-indigo-300 hover:text-obsidian"
+      className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full bg-bone px-8 py-4 text-sm font-bold text-obsidian shadow-soft transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-indigo-300 hover:text-obsidian sm:w-auto"
     >
       <span className="relative inline-flex h-4 w-5 items-center justify-center">
         <motion.svg
@@ -65,7 +65,7 @@ const SeeHowButton = () => {
       onClick={scrollToHow}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-bone/30 bg-transparent px-8 py-4 text-sm font-bold text-bone transition-colors duration-300 ease-out hover:border-indigo-300 hover:bg-indigo-300 hover:text-obsidian"
+      className="group relative inline-flex w-full items-center justify-center gap-3 overflow-hidden rounded-full border border-bone/25 bg-white/[0.02] px-8 py-4 text-sm font-bold text-bone transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-bone/60 hover:bg-white/[0.06] sm:w-auto"
     >
       See how it works
       <span className="relative inline-flex h-4 w-[22px] items-center justify-center font-mono text-[13px]">
@@ -124,21 +124,26 @@ const Hero = () => {
               <span className="text-bone/30">foundation for business growth.</span>
             </h1>
 
-            {/* Buttons + trust strip share a container so they line up */}
-            <div className="mt-12 flex flex-col items-stretch gap-5 animate-fade-in" style={{ animationDelay: "180ms" }}>
-              <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Buttons + trust strip */}
+            <div
+              className="mt-10 flex w-full max-w-md flex-col gap-6 animate-fade-in lg:max-w-none lg:items-start"
+              style={{ animationDelay: "180ms" }}
+            >
+              {/* Button row — stacks on mobile, side-by-side from sm: */}
+              <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 lg:w-auto">
                 <StartProjectButton />
                 <SeeHowButton />
               </div>
 
-              {/* Trust strip — same width as the button row, items spread end-to-end */}
-              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-1">
+              {/* Trust strip — column on mobile (centered, consistent left edge),
+                  inline row from sm: */}
+              <div className="flex flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-6 sm:gap-y-2 lg:justify-start">
                 {["14-day launch", "No lock-in", "Results guaranteed"].map((t) => (
                   <div
                     key={t}
-                    className="flex items-center gap-2 text-[13px] font-semibold text-bone/55 md:text-sm"
+                    className="flex items-center gap-2.5 text-[13px] font-semibold text-bone/65 md:text-sm"
                   >
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/70 shadow-[0_0_8px_rgba(129,140,248,0.6)]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/80 shadow-[0_0_10px_rgba(129,140,248,0.7)]" />
                     {t}
                   </div>
                 ))}
