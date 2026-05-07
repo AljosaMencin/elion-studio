@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useGetInTouch } from "./GetInTouchDrawer";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -293,6 +294,7 @@ type MobileSection = "solutions" | "case-studies" | "pricing" | "audit" | null;
 
 const MobileMenu = ({ onClose }: { onClose: () => void }) => {
   const [open, setOpen] = useState<MobileSection>(null);
+  const { open: openContact } = useGetInTouch();
 
   const toggle = (id: MobileSection) => setOpen((prev) => (prev === id ? null : id));
 
@@ -432,13 +434,13 @@ const MobileMenu = ({ onClose }: { onClose: () => void }) => {
           </svg>
           My Dashboard
         </a>
-        <a
-          href="mailto:hello@elion.studio"
-          onClick={onClose}
+        <button
+          type="button"
+          onClick={() => { onClose(); openContact(); }}
           className="flex w-full items-center justify-center gap-3 rounded-full bg-bone py-3.5 text-sm font-bold text-obsidian"
         >
-          Start Your Free Audit →
-        </a>
+          Get in touch →
+        </button>
         <div className="mt-5 flex items-center justify-center gap-5">
           {[
             { icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> },
@@ -469,6 +471,7 @@ const Nav = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { open: openContact } = useGetInTouch();
 
   const open = (id: MenuId) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -572,12 +575,8 @@ const Nav = () => {
               My Dashboard
             </a>
             <button
-              onMouseEnter={() => open("audit")}
-              className={`hidden rounded-full border px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] transition-all duration-300 lg:flex items-center gap-2 ${
-                active === "audit"
-                  ? "border-bone bg-bone text-obsidian"
-                  : "border-bone/20 text-bone hover:border-bone hover:bg-bone hover:text-obsidian"
-              }`}
+              onClick={() => { setActive(null); openContact(); }}
+              className="hidden rounded-full border border-bone/20 px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-bone transition-all duration-300 hover:border-bone hover:bg-bone hover:text-obsidian lg:flex items-center gap-2"
             >
               Get in touch
             </button>

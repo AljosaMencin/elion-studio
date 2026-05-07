@@ -10,6 +10,7 @@ const modules = [
     ),
     description: "High-converting websites that look great and perform exceptionally. Built fast, optimized continuously.",
     cta: "Explore Websites",
+    href: "/services#websites",
     featured: false,
   },
   {
@@ -25,6 +26,7 @@ const modules = [
     ),
     description: "Booking, KPI dashboards and content systems that automate your business and free up your time.",
     cta: "Explore Systems",
+    href: "/services#systems",
     featured: true,
   },
   {
@@ -38,11 +40,13 @@ const modules = [
     ),
     description: "Data-driven marketing strategies that bring more traffic and conversions, powered by real analytics.",
     cta: "Explore Growth",
+    href: "/services#growth",
     featured: false,
   },
 ];
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ScrollFadeBlur from "@/components/elion/ScrollFadeBlur";
 
 const CoreModules = () => {
@@ -99,15 +103,15 @@ const CoreModules = () => {
                   {m.description}
                 </p>
 
-                <a
-                  href="#contact"
+                <Link
+                  to={m.href}
                   className={`mt-8 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 ${
                     active ? "text-indigo-300 hover:text-indigo-200" : "text-bone/40 hover:text-bone"
                   }`}
                 >
                   {m.cta}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
+                </Link>
               </div>
             );
           })}

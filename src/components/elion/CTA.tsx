@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useGetInTouch } from "./GetInTouchDrawer";
 
 const CTA = () => {
+  const { open } = useGetInTouch();
   return (
     <section
       id="contact"
@@ -73,8 +75,9 @@ const CTA = () => {
             visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
           }}
         >
-          <motion.a
-            href="mailto:hello@elion.studio"
+          <motion.button
+            type="button"
+            onClick={open}
             className="group relative flex items-center gap-4 overflow-hidden rounded-full bg-bone px-10 py-4 text-sm font-bold text-obsidian shadow-soft"
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 320, damping: 22 }}
@@ -87,7 +90,7 @@ const CTA = () => {
               animate={{ x: "350%" }}
               transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 1.4, ease: "easeInOut" }}
             />
-          </motion.a>
+          </motion.button>
           <Link
             to="/about"
             className="group inline-flex items-center gap-2.5 rounded-full border border-bone/15 bg-white/[0.02] px-10 py-4 text-sm font-semibold text-bone/75 transition-all duration-300 hover:border-bone/35 hover:bg-white/[0.05] hover:text-bone"

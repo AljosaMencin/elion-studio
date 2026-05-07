@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import HeroPhoneVideo from "@/components/elion/HeroPhoneVideo";
+import { useGetInTouch } from "@/components/elion/GetInTouchDrawer";
 
 const StartProjectButton = () => {
   const [hovered, setHovered] = useState(false);
+  const { open } = useGetInTouch();
   return (
-    <a
-      href="#contact"
+    <button
+      type="button"
+      onClick={open}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-bone/30 bg-transparent px-8 py-4 text-sm font-bold text-bone transition-colors duration-300 ease-out hover:border-indigo-300 hover:bg-indigo-300 hover:text-obsidian"
@@ -45,15 +48,21 @@ const StartProjectButton = () => {
         </motion.svg>
       </span>
       Start a project
-    </a>
+    </button>
   );
 };
 
 const SeeHowButton = () => {
   const [hovered, setHovered] = useState(false);
+  const scrollToHow = () => {
+    document
+      .getElementById("how-it-works")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   return (
-    <a
-      href="#how-it-works"
+    <button
+      type="button"
+      onClick={scrollToHow}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-bone/30 bg-transparent px-8 py-4 text-sm font-bold text-bone transition-colors duration-300 ease-out hover:border-indigo-300 hover:bg-indigo-300 hover:text-obsidian"
@@ -93,7 +102,7 @@ const SeeHowButton = () => {
           {">"}
         </motion.span>
       </span>
-    </a>
+    </button>
   );
 };
 
