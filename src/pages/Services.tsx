@@ -192,7 +192,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
   return (
     <section
       id={service.id}
-      className="relative scroll-mt-32 px-6 py-24 md:px-12 md:py-36"
+      className="relative scroll-mt-40 px-6 py-24 md:px-12 md:py-36"
     >
       <div className="mx-auto max-w-[1320px]">
         {/* Top — copy + graphic */}
@@ -409,7 +409,7 @@ const Services = () => {
 
   // Scroll to the anchor section (or top) on mount and on hashchange.
   useEffect(() => {
-    const headerOffset = 96;
+    const headerOffset = 144;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
     const tryScroll = () => {
