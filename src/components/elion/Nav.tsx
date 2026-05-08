@@ -518,7 +518,7 @@ const Nav = () => {
         }`}
         onMouseLeave={scheduleClose}
       >
-        <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-2 md:px-12 md:py-2">
+        <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-2 md:px-6 md:py-2">
           {/* Logo */}
           <a href="#" className="flex-shrink-0">
             <img
