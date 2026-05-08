@@ -56,7 +56,7 @@ const SystemsGraphic = () => {
               <div className="font-display text-base font-bold text-bone">
                 {tile.val}
               </div>
-              <div className="mt-0.5 inline-flex items-center gap-1 text-[8px] font-semibold text-emerald-300/80">
+              <div className="mt-0.5 inline-flex items-center gap-1 text-[8px] font-semibold text-violet-300/85">
                 <span>↑</span>
                 {tile.trend}
               </div>
@@ -142,7 +142,7 @@ const SystemsGraphic = () => {
           {/* Status row */}
           <div className="col-span-3 flex items-center gap-3 rounded-md border border-white/[0.06] bg-white/[0.02] p-3">
             <motion.span
-              className="h-2 w-2 rounded-full bg-emerald-300"
+              className="h-2 w-2 rounded-full bg-violet-300"
               animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.3, 1] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -150,7 +150,7 @@ const SystemsGraphic = () => {
               <span className="text-bone/85">3 automations</span> running ·{" "}
               <span className="text-bone/85">12 webhooks</span> healthy
             </div>
-            <div className="ml-auto inline-flex items-center gap-1 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-2 py-0.5 text-[7px] font-bold uppercase tracking-wider text-emerald-200">
+            <div className="ml-auto inline-flex items-center gap-1 rounded-full border border-violet-300/30 bg-violet-300/10 px-2 py-0.5 text-[7px] font-bold uppercase tracking-wider text-violet-200">
               All systems go
             </div>
           </div>

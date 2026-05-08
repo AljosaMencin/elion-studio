@@ -175,7 +175,7 @@ const SERVICES: Service[] = [
       "Funnel analytics",
     ],
     graphic: <GrowthGraphic />,
-    accent: "rgba(110,231,183,0.5)",
+    accent: "rgba(216,180,254,0.55)",
   },
 ];
 

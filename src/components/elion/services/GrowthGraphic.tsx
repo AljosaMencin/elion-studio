@@ -26,7 +26,7 @@ const GrowthGraphic = () => {
           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-bone/55">
             Growth Report — Q3
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-emerald-200">
+          <div className="flex items-center gap-1.5 rounded-full border border-violet-300/30 bg-violet-300/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-violet-200">
             +218% YoY
           </div>
         </div>
@@ -45,7 +45,7 @@ const GrowthGraphic = () => {
                   Sessions
                 </span>
                 <span className="inline-flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-300" />
                   Conv.
                 </span>
               </div>
@@ -97,7 +97,7 @@ const GrowthGraphic = () => {
               <motion.path
                 d="M0,72 L40,68 L80,62 L120,52 L160,40 L200,28 L220,20"
                 fill="none"
-                stroke="rgba(110,231,183,0.9)"
+                stroke="rgba(216,180,254,0.9)"
                 strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeDasharray="3 3"
@@ -176,8 +176,8 @@ const GrowthGraphic = () => {
             <div className="flex flex-col gap-1.5">
               {[
                 { label: "Organic search", pct: 78, color: "from-indigo-400 to-indigo-300" },
-                { label: "Direct", pct: 54, color: "from-emerald-400 to-emerald-300" },
-                { label: "Social", pct: 32, color: "from-fuchsia-400 to-fuchsia-300" },
+                { label: "Direct", pct: 54, color: "from-violet-400 to-violet-300" },
+                { label: "Social", pct: 32, color: "from-purple-400 to-purple-300" },
               ].map((c, i) => (
                 <div key={c.label} className="flex items-center gap-2">
                   <div className="w-20 text-[8px] font-medium text-bone/55">
