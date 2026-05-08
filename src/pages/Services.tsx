@@ -346,8 +346,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                 />
                 <div className="flex items-baseline gap-3">
                   <span
-                    className="font-display text-3xl font-bold leading-none"
-                    style={{ color: accentSolid }}
+                    className="font-display text-3xl font-bold leading-none text-indigo-400"
                   >
                     {p.step}
                   </span>
