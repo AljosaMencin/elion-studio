@@ -65,6 +65,65 @@ const MeetTheTeamButton = () => (
   </Link>
 );
 
+const MobileFeatureCard = ({
+  tag,
+  title,
+  subtitle,
+  accent,
+}: {
+  tag: string;
+  title: string;
+  subtitle: string;
+  accent: "indigo" | "emerald";
+}) => {
+  const subtitleColor =
+    accent === "emerald" ? "rgba(110,231,183,0.92)" : "rgba(165,180,252,0.92)";
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 text-left backdrop-blur-xl shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)]">
+      {/* Soft accent glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-60 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(129,140,248,0.45), transparent 70%)",
+        }}
+      />
+      <div className="relative flex items-center justify-between">
+        <span
+          style={{
+            fontSize: 9,
+            letterSpacing: "0.22em",
+            color: "rgba(165,180,252,0.9)",
+            fontWeight: 700,
+          }}
+        >
+          {tag}
+        </span>
+        <span className="h-1.5 w-1.5 rounded-full bg-indigo-300 shadow-[0_0_8px_rgba(165,180,252,0.8)]" />
+      </div>
+      <div
+        className="relative mt-2 font-display"
+        style={{
+          fontSize: 28,
+          fontWeight: 800,
+          color: "rgba(250,250,250,0.96)",
+          letterSpacing: "-0.04em",
+          lineHeight: 1.05,
+        }}
+      >
+        {title}
+      </div>
+      <div
+        className="relative mt-1"
+        style={{ fontSize: 12, color: subtitleColor, fontWeight: 600 }}
+      >
+        {subtitle}
+      </div>
+    </div>
+  );
+};
+
 const Hero = () => {
   return (
     <section className="relative flex flex-col items-center px-6 pb-20 pt-40 md:px-12 md:pt-48">
@@ -97,14 +156,41 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Ecosystem visual */}
+      {/* Ecosystem visual — desktop / large tablet only */}
       <motion.div
-        className="relative z-10 mt-16 w-full max-w-[1200px] md:mt-20"
+        className="relative z-10 mt-16 hidden w-full max-w-[1200px] lg:mt-20 lg:block"
         initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
         <EcosystemHero />
+      </motion.div>
+
+      {/* Mobile / tablet — vertical stack of feature cards */}
+      <motion.div
+        className="relative z-10 mt-14 grid w-full max-w-md grid-cols-1 gap-3 lg:hidden"
+        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <MobileFeatureCard
+          tag="REVENUE"
+          title="$48,230"
+          subtitle="↑ 24.6% MoM"
+          accent="emerald"
+        />
+        <MobileFeatureCard
+          tag="BOOKINGS"
+          title="11:15"
+          subtitle="Next appointment · 6 today"
+          accent="indigo"
+        />
+        <MobileFeatureCard
+          tag="CONVERSION"
+          title="+147%"
+          subtitle="vs. last quarter"
+          accent="indigo"
+        />
       </motion.div>
     </section>
   );
