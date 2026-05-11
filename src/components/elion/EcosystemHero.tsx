@@ -59,46 +59,122 @@ const AnalyticsCard = () => (
   </div>
 );
 
-const StorefrontCard = () => (
-  <div className="flex flex-col gap-2" style={{ width: 160 }}>
-    <span
-      style={{
-        fontSize: 8,
-        letterSpacing: "0.18em",
-        color: "rgba(165,180,252,0.85)",
-        fontWeight: 700,
-      }}
-    >
-      STOREFRONT
-    </span>
-    <div className="grid grid-cols-3 gap-1.5">
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className="overflow-hidden rounded-md"
+const BookingsCard = () => {
+  const slots: { time: string; state: "booked" | "open" | "highlight" }[] = [
+    { time: "09:00", state: "booked" },
+    { time: "10:30", state: "open" },
+    { time: "11:15", state: "highlight" },
+    { time: "13:00", state: "booked" },
+    { time: "14:30", state: "open" },
+    { time: "16:00", state: "booked" },
+  ];
+  return (
+    <div className="flex flex-col gap-2" style={{ width: 175 }}>
+      <div className="flex items-center justify-between">
+        <span
           style={{
-            aspectRatio: "1/1.15",
-            background: `linear-gradient(160deg, rgba(255,255,255,${
-              0.05 + (i % 3) * 0.02
-            }), rgba(99,102,241,${0.08 + (i % 2) * 0.04}))`,
-            border: "1px solid rgba(255,255,255,0.05)",
+            fontSize: 8,
+            letterSpacing: "0.18em",
+            color: "rgba(165,180,252,0.85)",
+            fontWeight: 700,
           }}
         >
-          <div
-            style={{
-              height: "65%",
-              background: `rgba(255,255,255,${0.04 + (i % 3) * 0.02})`,
-            }}
-          />
-          <div className="flex flex-col gap-1 px-1.5 pt-1">
-            <div className="rounded" style={{ height: 3, width: "70%", background: "rgba(255,255,255,0.18)" }} />
-            <div className="rounded" style={{ height: 3, width: "45%", background: "rgba(129,140,248,0.55)" }} />
+          BOOKINGS
+        </span>
+        <span style={{ fontSize: 9, color: "rgba(250,250,250,0.55)", fontWeight: 600 }}>
+          Today
+        </span>
+      </div>
+
+      {/* Week strip */}
+      <div className="flex items-center justify-between">
+        {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+          <div key={i} className="flex flex-col items-center gap-0.5">
+            <span style={{ fontSize: 7, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>
+              {d}
+            </span>
+            <span
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 14,
+                height: 14,
+                fontSize: 7.5,
+                fontWeight: 700,
+                background:
+                  i === 2
+                    ? "linear-gradient(135deg, rgba(129,140,248,0.6), rgba(99,102,241,0.35))"
+                    : "rgba(255,255,255,0.04)",
+                color:
+                  i === 2 ? "rgba(250,250,250,0.95)" : "rgba(255,255,255,0.6)",
+                boxShadow:
+                  i === 2 ? "0 0 8px rgba(129,140,248,0.5)" : "none",
+              }}
+            >
+              {12 + i}
+            </span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      {/* Time slots */}
+      <div className="grid grid-cols-2 gap-1.5">
+        {slots.map((s, i) => {
+          const isBooked = s.state === "booked";
+          const isHighlight = s.state === "highlight";
+          return (
+            <div
+              key={i}
+              className="flex items-center justify-between rounded-md"
+              style={{
+                padding: "3.5px 6px",
+                background: isHighlight
+                  ? "linear-gradient(135deg, rgba(129,140,248,0.28), rgba(99,102,241,0.12))"
+                  : isBooked
+                  ? "rgba(255,255,255,0.05)"
+                  : "rgba(255,255,255,0.025)",
+                border: isHighlight
+                  ? "1px solid rgba(165,180,252,0.45)"
+                  : "1px solid rgba(255,255,255,0.05)",
+                boxShadow: isHighlight
+                  ? "0 0 10px rgba(129,140,248,0.35)"
+                  : "none",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 8.5,
+                  fontWeight: 700,
+                  color: isHighlight
+                    ? "rgba(250,250,250,0.95)"
+                    : isBooked
+                    ? "rgba(250,250,250,0.7)"
+                    : "rgba(250,250,250,0.45)",
+                }}
+              >
+                {s.time}
+              </span>
+              <span
+                className="h-1 w-1 rounded-full"
+                style={{
+                  background: isHighlight
+                    ? "rgba(165,180,252,0.95)"
+                    : isBooked
+                    ? "rgba(52,211,153,0.85)"
+                    : "rgba(255,255,255,0.2)",
+                  boxShadow: isHighlight
+                    ? "0 0 4px rgba(165,180,252,0.9)"
+                    : isBooked
+                    ? "0 0 4px rgba(52,211,153,0.6)"
+                    : "none",
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const CrmCard = () => (
   <div className="flex flex-col gap-2" style={{ width: 175 }}>
@@ -342,14 +418,14 @@ const ConversionCard = () => (
   </div>
 );
 
-// Card positions around the core — { x%, y%, rotation, content, delay }
+// Card positions around the core — { x%, y%, rotation, content, delay, float }
 const CARDS = [
-  { x: "6%",  y: "10%", rot: -3.5, content: <AnalyticsCard />,   delay: 0.2 },
-  { x: "70%", y: "6%",  rot: 3,    content: <StorefrontCard />,  delay: 0.35 },
-  { x: "2%",  y: "62%", rot: 2,    content: <CrmCard />,         delay: 0.5 },
-  { x: "65%", y: "60%", rot: -2.5, content: <AutomationCard />,  delay: 0.65 },
-  { x: "26%", y: "82%", rot: -1.5, content: <ConversionCard />,  delay: 0.8 },
-  { x: "78%", y: "36%", rot: 2,    content: <AiCard />,          delay: 0.95 },
+  { x: "6%",  y: "10%", rot: -3.5, content: <AnalyticsCard />,   delay: 0.2,  amp: 10, dur: 11 },
+  { x: "70%", y: "6%",  rot: 3,    content: <BookingsCard />,    delay: 0.35, amp: 12, dur: 13 },
+  { x: "2%",  y: "62%", rot: 2,    content: <CrmCard />,         delay: 0.5,  amp: 9,  dur: 12 },
+  { x: "65%", y: "60%", rot: -2.5, content: <AutomationCard />,  delay: 0.65, amp: 11, dur: 14 },
+  { x: "26%", y: "82%", rot: -1.5, content: <ConversionCard />,  delay: 0.8,  amp: 8,  dur: 10 },
+  { x: "78%", y: "36%", rot: 2,    content: <AiCard />,          delay: 0.95, amp: 10, dur: 13.5 },
 ];
 
 // ── Connection paths from core to each card (SVG) ─────────────────────────────
@@ -548,39 +624,43 @@ const EcosystemHero = () => {
 
       {/* Floating cards */}
       {CARDS.map((card, i) => (
-        <motion.div
+        <div
           key={i}
-          className={cardBase}
+          className="absolute"
           style={{
             left: card.x,
             top: card.y,
             transform: `rotate(${card.rot}deg)`,
-          }}
-          initial={{ opacity: 0, y: 24, scale: 0.92, filter: "blur(8px)" }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          transition={{
-            duration: 0.9,
-            delay: card.delay,
-            ease: [0.22, 1, 0.36, 1],
+            willChange: "transform",
           }}
         >
+          {/* Entrance — fade + scale only (no y, so it can't fight the float) */}
           <motion.div
-            animate={{ y: [0, -6, 0] }}
+            initial={{ opacity: 0, scale: 0.94, filter: "blur(8px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{
-              duration: 5 + (i % 3) * 0.6,
-              repeat: Infinity,
-              ease: "easeInOut",
+              duration: 1,
               delay: card.delay,
+              ease: [0.22, 1, 0.36, 1],
             }}
           >
-            {card.content}
+            {/* Continuous float — slow, smooth, organic */}
+            <motion.div
+              className={cardBase}
+              style={{ willChange: "transform" }}
+              animate={{ y: [0, -card.amp, 0, card.amp * 0.6, 0] }}
+              transition={{
+                duration: card.dur,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.3, 0.55, 0.8, 1],
+                delay: card.delay,
+              }}
+            >
+              {card.content}
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       ))}
 
       {/* Drifting particles */}

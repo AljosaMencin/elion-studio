@@ -67,7 +67,7 @@ const MeetTheTeamButton = () => (
 
 const Hero = () => {
   return (
-    <section className="relative flex flex-col items-center px-6 pb-20 pt-32 md:px-12 md:pt-36">
+    <section className="relative flex flex-col items-center px-6 pb-20 pt-40 md:px-12 md:pt-48">
       <div className="relative z-10 flex w-full max-w-[1100px] flex-col items-center text-center">
         <h1 className="max-w-[20ch] text-balance font-display text-[2.75rem] font-bold leading-[1.02] tracking-tight text-bone md:text-[4.25rem] md:leading-[1.04] lg:text-[5rem] animate-fade-in">
           A smarter digital{" "}
