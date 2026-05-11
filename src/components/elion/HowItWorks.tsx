@@ -151,16 +151,14 @@ const HowItWorks = () => {
     <section id="how-it-works" className="relative px-6 py-32 md:px-12 md:py-40 bg-obsidian-surface">
       <div className="mx-auto max-w-[1440px]">
 
-        <ScrollFadeBlur className="mb-24 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
-              The process
-            </p>
-            <h2 className="font-display text-5xl font-bold leading-[0.92] tracking-tighter text-bone md:text-7xl">
-              How it <br />
-              <span className="text-bone/30">works.</span>
-            </h2>
-          </div>
+        <ScrollFadeBlur className="mb-24 flex flex-col items-center text-center gap-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
+            The process
+          </p>
+          <h2 className="font-display text-5xl font-bold leading-[0.92] tracking-tighter text-bone md:text-7xl">
+            How it <br />
+            <span className="text-bone/30">works.</span>
+          </h2>
         </ScrollFadeBlur>
 
         <div ref={sectionRef} className="relative">

@@ -422,7 +422,7 @@ const ProofResults = () => {
     >
       <div className="mx-auto max-w-[1440px]">
 
-        <ScrollFadeBlur className="mb-20">
+        <ScrollFadeBlur className="mb-20 flex flex-col items-center text-center">
           <h2 className="font-display text-5xl font-bold leading-[0.92] tracking-tighter text-bone md:text-7xl">
             See what drives <br />
             <span className="text-bone/30">your business.</span>
@@ -438,7 +438,7 @@ const ProofResults = () => {
                 key={c.tag}
                 onMouseEnter={() => handleCardEnter(i)}
                 onMouseLeave={handleCardLeave}
-                className={`group relative flex flex-col rounded-2xl border bg-[#0a0a0d] p-5 transition-colors duration-300 ease-out ${
+                className={`group relative flex flex-col items-center text-center rounded-2xl border bg-[#0a0a0d] p-5 transition-colors duration-300 ease-out ${
                   active
                     ? "border-indigo-400/35 bg-[#0c0d18]"
                     : "border-white/[0.06]"

@@ -70,7 +70,7 @@ const WhyElion = () => {
     <section id="why" className="relative px-6 py-32 md:px-12 md:py-40">
       <div className="mx-auto max-w-[1440px]">
 
-        <ScrollFadeBlur className="mb-24">
+        <ScrollFadeBlur className="mb-24 flex flex-col items-center text-center">
           <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
             Why Elion
           </p>
@@ -102,7 +102,7 @@ const WhyElion = () => {
             return (
               <motion.div
                 key={f.title}
-                className="group relative flex flex-col gap-4 bg-obsidian p-8 transition-colors duration-300 hover:bg-obsidian-surface"
+                className="group relative flex flex-col items-center text-center gap-4 bg-obsidian p-8 transition-colors duration-300 hover:bg-obsidian-surface"
                 variants={{
                   hidden: { opacity: 0, x: -90, scale: 0.82, filter: "blur(10px)" },
                   visible: { opacity: 1, x: 0, scale: 1, filter: "blur(0px)" },

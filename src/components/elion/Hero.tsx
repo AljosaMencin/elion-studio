@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import HeroPhoneVideo from "@/components/elion/HeroPhoneVideo";
 import { useGetInTouch } from "@/components/elion/GetInTouchDrawer";
+import EcosystemHero from "@/components/elion/EcosystemHero";
 
 const GetInTouchButton = () => {
   const { open } = useGetInTouch();
@@ -67,58 +67,45 @@ const MeetTheTeamButton = () => (
 
 const Hero = () => {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-6 pb-20 pt-36 md:px-12 md:pt-40">
-      <div className="relative z-10 w-full max-w-[1440px]">
-        <div className="flex flex-col items-center gap-16 lg:flex-row lg:items-center lg:gap-20">
+    <section className="relative flex flex-col items-center px-6 pb-20 pt-32 md:px-12 md:pt-36">
+      <div className="relative z-10 flex w-full max-w-[1100px] flex-col items-center text-center">
+        <h1 className="max-w-[20ch] text-balance font-display text-[2.75rem] font-bold leading-[1.02] tracking-tight text-bone md:text-[4.25rem] md:leading-[1.04] lg:text-[5rem] animate-fade-in">
+          A smarter digital{" "}
+          <span className="text-bone/30">foundation for business growth.</span>
+        </h1>
 
-          {/* Left: Copy */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:flex-[0.95]">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/4 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-bone/60 animate-fade-in">
-              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/80" />
-              Digital growth studio
-            </div>
-
-            <h1 className="max-w-[18ch] text-balance font-display text-[2.75rem] font-bold leading-[1.02] tracking-tight text-bone md:text-[4.25rem] md:leading-[1.04] lg:text-[4.75rem] animate-fade-in">
-              A smarter digital{" "}
-              <span className="text-bone/30">foundation for business growth.</span>
-            </h1>
-
-            {/* Buttons + trust strip */}
-            <div
-              className="mt-10 flex w-full max-w-md flex-col gap-6 animate-fade-in lg:max-w-none lg:items-start"
-              style={{ animationDelay: "180ms" }}
-            >
-              {/* Button row — stacks on mobile, side-by-side from sm: */}
-              <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 lg:w-auto">
-                <GetInTouchButton />
-                <MeetTheTeamButton />
-              </div>
-
-              {/* Trust strip — column on mobile (centered, consistent left edge),
-                  inline row from sm: */}
-              <div className="flex flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-6 sm:gap-y-2 lg:justify-start">
-                {["14-day launch", "No lock-in", "Results guaranteed"].map((t) => (
-                  <div
-                    key={t}
-                    className="flex items-center gap-2.5 text-[13px] font-semibold text-bone/65 md:text-sm"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/80 shadow-[0_0_10px_rgba(129,140,248,0.7)]" />
-                    {t}
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div
+          className="mt-10 flex w-full max-w-md flex-col items-center gap-6 animate-fade-in"
+          style={{ animationDelay: "180ms" }}
+        >
+          <div className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-4">
+            <GetInTouchButton />
+            <MeetTheTeamButton />
           </div>
 
-          {/* Right: Visual — desktop only */}
-          <div
-            className="hidden lg:block w-full lg:flex-[1.15] animate-fade-in"
-            style={{ animationDelay: "200ms" }}
-          >
-            <HeroPhoneVideo />
+          <div className="flex flex-col items-center gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-6 sm:gap-y-2">
+            {["14-day launch", "No lock-in", "Results guaranteed"].map((t) => (
+              <div
+                key={t}
+                className="flex items-center gap-2.5 text-[13px] font-semibold text-bone/65 md:text-sm"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-400/80 shadow-[0_0_10px_rgba(129,140,248,0.7)]" />
+                {t}
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* Ecosystem visual */}
+      <motion.div
+        className="relative z-10 mt-16 w-full max-w-[1200px] md:mt-20"
+        initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <EcosystemHero />
+      </motion.div>
     </section>
   );
 };

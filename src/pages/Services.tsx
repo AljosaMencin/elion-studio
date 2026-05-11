@@ -209,7 +209,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
               {service.index}
             </span>
 
-            <div className="relative">
+            <div className="relative flex flex-col items-center text-center lg:items-center">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-bone/65">
                 <span
                   className="h-1.5 w-1.5 rounded-full"
@@ -276,7 +276,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                    className="flex flex-1 flex-col items-start px-4 py-4"
+                    className="flex flex-1 flex-col items-center px-4 py-4"
                   >
                     <span
                       className="font-display text-2xl font-bold tracking-tight text-bone md:text-3xl"
@@ -318,11 +318,10 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
 
         {/* Process — full-width below the grid */}
         <ScrollFadeBlur className="mt-20 md:mt-28">
-          <div className="mb-8 flex items-center gap-4">
+          <div className="mb-8 flex flex-col items-center text-center gap-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
               How it works
             </span>
-            <span className="h-px flex-1 bg-gradient-to-r from-bone/15 to-transparent" />
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -333,7 +332,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-colors duration-300 hover:border-white/[0.12]"
+                className="group relative flex flex-col items-center text-center overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-colors duration-300 hover:border-white/[0.12]"
               >
                 {/* Accent bar */}
                 <span
@@ -344,7 +343,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                     opacity: 0.5,
                   }}
                 />
-                <div className="flex items-baseline gap-3">
+                <div className="flex items-baseline justify-center gap-3">
                   <span
                     className="font-display text-3xl font-bold leading-none text-indigo-400"
                   >
@@ -366,7 +365,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
         </ScrollFadeBlur>
 
         {/* Use cases */}
-        <ScrollFadeBlur className="mt-12 flex flex-wrap items-center gap-3">
+        <ScrollFadeBlur className="mt-12 flex flex-wrap items-center justify-center gap-3">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-bone/35">
             Built for
           </span>
@@ -525,9 +524,9 @@ const Services = () => {
                 animate={{ opacity: [0.3, 0.55, 0.3], scale: [1, 1.05, 1] }}
                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               />
-              <div className="relative flex flex-col items-start gap-10 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
+              <div className="relative flex flex-col items-center text-center gap-10">
+                <div className="flex flex-col items-center gap-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
                     The complete system
                   </p>
                   <h3 className="max-w-[22ch] font-display text-3xl font-bold leading-tight tracking-tight text-bone md:text-5xl">

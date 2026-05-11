@@ -118,97 +118,94 @@ const About = () => {
       <Nav />
 
       <main className="relative z-10 pt-36 md:pt-44">
-        {/* ── Section 1 — Intro / Vision ───────────────────────────────────── */}
+        {/* ── Section 1 — Intro / Vision (with team image alongside) ────────── */}
         <section className="relative px-6 pb-24 md:px-12 md:pb-32">
           <div className="mx-auto max-w-[1440px]">
             <ScrollFadeBlur>
-              <div className="flex flex-col items-start gap-8">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
-                  About Elion
-                </p>
+              <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+                {/* Left — copy */}
+                <div className="flex flex-col items-start gap-8">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-bone/40">
+                    About Elion
+                  </p>
 
-                <h1 className="max-w-[20ch] font-display text-5xl font-bold leading-[1.04] tracking-tight text-bone md:text-7xl">
-                  Built around a clear{" "}
-                  <span className="text-bone/30">direction.</span>
-                </h1>
+                  <h1 className="max-w-[18ch] font-display text-5xl font-bold leading-[1.04] tracking-tight text-bone md:text-6xl lg:text-[4.25rem]">
+                    Built around a clear{" "}
+                    <span className="text-bone/30">direction.</span>
+                  </h1>
 
-                <div className="mt-4 flex max-w-[68ch] flex-col gap-6 text-base font-medium leading-relaxed text-bone/65 md:text-[17px]">
-                  <p>
-                    From the beginning, our focus was never just on building
-                    websites. We were drawn to the idea of shaping how companies
-                    present themselves in the digital world, long before we fully
-                    understood what that would look like or how far it could go.
-                    What started as curiosity around design, systems, and online
-                    behavior gradually evolved into a clear direction.
-                  </p>
-                  <p>
-                    With Elion, that direction became structured. We are now able
-                    to work with companies at every stage of their growth, from
-                    early presence to fully developed digital ecosystems. Our role
-                    is not limited to creating something that looks good, but to
-                    building systems that perform, adapt, and provide real
-                    insight. This aligns with the core idea of delivering
-                    scalable, data-driven solutions that help businesses grow
-                    through modern technologies.
-                  </p>
-                  <p>
-                    We approach every project with the understanding that a
-                    company's digital presence is not static. It is something
-                    that needs to evolve, be measured, and continuously improved.
-                  </p>
+                  <div className="mt-2 flex flex-col gap-6 text-base font-medium leading-relaxed text-bone/65 md:text-[17px]">
+                    <p>
+                      From the beginning, our focus was never just on building
+                      websites. We were drawn to the idea of shaping how companies
+                      present themselves in the digital world, long before we fully
+                      understood what that would look like or how far it could go.
+                      What started as curiosity around design, systems, and online
+                      behavior gradually evolved into a clear direction.
+                    </p>
+                    <p>
+                      With Elion, that direction became structured. We are now able
+                      to work with companies at every stage of their growth, from
+                      early presence to fully developed digital ecosystems. Our role
+                      is not limited to creating something that looks good, but to
+                      building systems that perform, adapt, and provide real
+                      insight. This aligns with the core idea of delivering
+                      scalable, data-driven solutions that help businesses grow
+                      through modern technologies.
+                    </p>
+                    <p>
+                      We approach every project with the understanding that a
+                      company's digital presence is not static. It is something
+                      that needs to evolve, be measured, and continuously improved.
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </ScrollFadeBlur>
-          </div>
-        </section>
 
-        {/* ── Section 2 — Team / Studio image placeholder ──────────────────── */}
-        <section className="relative px-6 pb-24 md:px-12 md:pb-32">
-          <div className="mx-auto max-w-[1440px]">
-            <ScrollFadeBlur>
-              <div
-                className="relative w-full overflow-hidden rounded-3xl border border-white/[0.06]"
-                style={{
-                  aspectRatio: "16/7",
-                  background:
-                    "linear-gradient(160deg, #0d0d18 0%, #07070b 60%, #0a0a14 100%)",
-                }}
-              >
-                {/* Atmospheric glow */}
+                {/* Right — Team / Studio image placeholder */}
                 <div
-                  className="absolute inset-0"
+                  className="relative w-full overflow-hidden rounded-3xl border border-white/[0.06] lg:sticky lg:top-32"
                   style={{
+                    aspectRatio: "4/5",
                     background:
-                      "radial-gradient(ellipse 60% 80% at 30% 40%, rgba(99,102,241,0.18), transparent 60%), radial-gradient(ellipse 50% 60% at 75% 70%, rgba(139,92,246,0.14), transparent 55%)",
+                      "linear-gradient(160deg, #0d0d18 0%, #07070b 60%, #0a0a14 100%)",
                   }}
-                />
-                {/* Faint grid */}
-                <div
-                  className="absolute inset-0 opacity-[0.04]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
-                    backgroundSize: "44px 44px",
-                  }}
-                />
-                {/* Center label */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <span className="rounded-full border border-bone/15 bg-obsidian/70 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-bone/45 backdrop-blur-sm">
-                    Team / Studio image
-                  </span>
-                  <p className="max-w-[44ch] text-balance text-center text-xs font-medium text-bone/35">
-                    Reserved for a natural, slightly editorial photograph of the
-                    team and studio environment.
-                  </p>
+                >
+                  {/* Atmospheric glow */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse 60% 80% at 30% 40%, rgba(99,102,241,0.18), transparent 60%), radial-gradient(ellipse 50% 60% at 75% 70%, rgba(139,92,246,0.14), transparent 55%)",
+                    }}
+                  />
+                  {/* Faint grid */}
+                  <div
+                    className="absolute inset-0 opacity-[0.04]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+                      backgroundSize: "44px 44px",
+                    }}
+                  />
+                  {/* Center label */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6">
+                    <span className="rounded-full border border-bone/15 bg-obsidian/70 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-bone/45 backdrop-blur-sm">
+                      Team / Studio image
+                    </span>
+                    <p className="max-w-[28ch] text-balance text-center text-xs font-medium text-bone/35">
+                      Reserved for a natural, slightly editorial photograph of the
+                      team and studio environment.
+                    </p>
+                  </div>
+                  {/* Vignette */}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)",
+                    }}
+                  />
                 </div>
-                {/* Vignette */}
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.4) 100%)",
-                  }}
-                />
               </div>
             </ScrollFadeBlur>
           </div>

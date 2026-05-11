@@ -72,7 +72,7 @@ const CoreModules = () => {
             return (
               <div
                 key={m.tag}
-                className={`group relative flex flex-col rounded-2xl border p-8 transition-all duration-300 ease-out ${
+                className={`group relative flex flex-col items-center text-center rounded-2xl border p-8 transition-all duration-300 ease-out ${
                   active
                     ? "-translate-y-1 border-indigo-400/40 bg-indigo-950/40 shadow-[0_0_80px_-20px_rgba(99,102,241,0.4)]"
                     : "border-white/[0.06] bg-obsidian-surface"

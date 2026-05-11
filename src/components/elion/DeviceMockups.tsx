@@ -105,6 +105,276 @@ export const LaptopFrame: React.FC<{ children: React.ReactNode; className?: stri
   </div>
 );
 
+// Realistic iPhone frame with mobile dashboard inside — for the hero
+export const PhoneDashboard: React.FC = () => (
+  <div className="relative h-full w-full">
+    {/* Outer iPhone body — light silver metallic frame */}
+    <div
+      className="relative h-full w-full"
+      style={{
+        background:
+          "linear-gradient(135deg, #f5f5f7 0%, #d8d8dc 35%, #c4c4c9 55%, #e8e8ec 100%)",
+        borderRadius: "14%",
+        padding: "2.8%",
+        boxShadow:
+          "0 60px 120px -30px rgba(0,0,0,0.6), 0 30px 60px -20px rgba(99,102,241,0.2), 0 0 0 1px rgba(255,255,255,0.4) inset",
+      }}
+    >
+      {/* Silver side buttons — left side */}
+      <div
+        className="absolute"
+        style={{
+          left: "-1.8%",
+          top: "16%",
+          width: "1.8%",
+          height: "5%",
+          background: "linear-gradient(90deg, #b8b8bd, #e5e5e9)",
+          borderRadius: "2px 0 0 2px",
+          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
+        }}
+      />
+      <div
+        className="absolute"
+        style={{
+          left: "-1.8%",
+          top: "26%",
+          width: "1.8%",
+          height: "9%",
+          background: "linear-gradient(90deg, #b8b8bd, #e5e5e9)",
+          borderRadius: "2px 0 0 2px",
+          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
+        }}
+      />
+      <div
+        className="absolute"
+        style={{
+          left: "-1.8%",
+          top: "38%",
+          width: "1.8%",
+          height: "9%",
+          background: "linear-gradient(90deg, #b8b8bd, #e5e5e9)",
+          borderRadius: "2px 0 0 2px",
+          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
+        }}
+      />
+      {/* Power button — right side */}
+      <div
+        className="absolute"
+        style={{
+          right: "-1.8%",
+          top: "30%",
+          width: "1.8%",
+          height: "14%",
+          background: "linear-gradient(270deg, #b8b8bd, #e5e5e9)",
+          borderRadius: "0 2px 2px 0",
+          boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
+        }}
+      />
+
+      {/* Inner screen with thin dark bezel */}
+      <div
+        className="relative h-full w-full overflow-hidden"
+        style={{
+          background: "#06070d",
+          borderRadius: "11.5%",
+          boxShadow:
+            "0 0 0 2px #0a0a0e, 0 0 0 3px rgba(255,255,255,0.15)",
+        }}
+      >
+        {/* Notch — classic iPhone notch with speaker and camera */}
+        <div
+          className="absolute left-1/2 z-20 -translate-x-1/2 flex items-center justify-center gap-2"
+          style={{
+            top: 0,
+            width: "44%",
+            height: "3.4%",
+            background: "#000",
+            borderRadius: "0 0 18px 18px",
+          }}
+        >
+          {/* Speaker grille */}
+          <div
+            style={{
+              width: "32%",
+              height: "18%",
+              background: "rgba(40,40,48,0.95)",
+              borderRadius: 999,
+            }}
+          />
+          {/* Camera */}
+          <div
+            style={{
+              width: "10%",
+              aspectRatio: "1",
+              background: "#0a0a14",
+              borderRadius: 999,
+              boxShadow: "inset 0 0 0 1px rgba(99,102,241,0.3)",
+            }}
+          />
+        </div>
+
+        {/* Status bar */}
+        <div
+          className="absolute z-10 flex w-full items-center justify-between px-[8%]"
+          style={{ top: "2.4%", height: "3.2%" }}
+        >
+          <span style={{ fontSize: "10px", color: "rgba(250,250,250,0.85)", fontWeight: 600 }}>
+            9:41
+          </span>
+          <div className="flex items-center gap-1">
+            <span style={{ width: 12, height: 8, background: "rgba(250,250,250,0.85)", borderRadius: 1.5, display: "inline-block" }} />
+            <span style={{ width: 10, height: 8, background: "rgba(250,250,250,0.85)", borderRadius: 1.5, display: "inline-block" }} />
+            <span style={{ width: 14, height: 8, background: "rgba(250,250,250,0.85)", borderRadius: 2, display: "inline-block" }} />
+          </div>
+        </div>
+
+        {/* Screen content — dashboard */}
+        <div
+          className="absolute inset-x-0 flex flex-col gap-2"
+          style={{ top: "8%", bottom: "5%", padding: "0 5%" }}
+        >
+          {/* Greeting header */}
+          <div className="flex items-center justify-between" style={{ marginBottom: "2%" }}>
+            <div className="flex flex-col gap-0.5">
+              <span style={{ fontSize: 8, color: "rgba(250,250,250,0.45)", fontWeight: 600, letterSpacing: "0.08em" }}>
+                DASHBOARD
+              </span>
+              <span style={{ fontSize: 13, color: "rgba(250,250,250,0.92)", fontWeight: 700, letterSpacing: "-0.02em" }}>
+                Good morning
+              </span>
+            </div>
+            <div
+              className="rounded-full"
+              style={{
+                width: 22,
+                height: 22,
+                background: "linear-gradient(135deg, rgba(129,140,248,0.6), rgba(99,102,241,0.3))",
+                border: "1px solid rgba(255,255,255,0.1)",
+              }}
+            />
+          </div>
+
+          {/* KPI row — 2 cards */}
+          <div className="grid grid-cols-2 gap-1.5">
+            {[
+              { label: "Revenue", value: "$48k", delta: "+24%", positive: true },
+              { label: "Visitors", value: "14.2k", delta: "+12%", positive: true },
+            ].map((k) => (
+              <div
+                key={k.label}
+                className="rounded-lg flex flex-col gap-0.5"
+                style={{
+                  padding: "6px 7px",
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                <span style={{ fontSize: 7, color: "rgba(255,255,255,0.45)", fontWeight: 600, letterSpacing: "0.1em" }}>
+                  {k.label.toUpperCase()}
+                </span>
+                <span style={{ fontSize: 13, color: "rgba(250,250,250,0.95)", fontWeight: 800, letterSpacing: "-0.03em" }}>
+                  {k.value}
+                </span>
+                <span style={{ fontSize: 7, color: "rgba(52,211,153,0.85)", fontWeight: 700 }}>
+                  ↑ {k.delta}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Chart card */}
+          <div
+            className="flex-1 rounded-lg overflow-hidden flex flex-col"
+            style={{
+              padding: "6px 7px",
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <div className="flex items-center justify-between" style={{ marginBottom: 4 }}>
+              <span style={{ fontSize: 8, color: "rgba(255,255,255,0.7)", fontWeight: 600 }}>
+                Sales · 7d
+              </span>
+              <span style={{ fontSize: 7, color: "rgba(129,140,248,0.85)", fontWeight: 700 }}>
+                +18.4%
+              </span>
+            </div>
+            <svg width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none" style={{ flex: 1 }}>
+              <defs>
+                <linearGradient id="phgrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(99,102,241,0.55)" />
+                  <stop offset="100%" stopColor="rgba(99,102,241,0)" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 45 C20 42 35 32 55 28 C75 24 90 30 110 18 C130 8 150 14 170 8 L200 5 L200 60 L0 60 Z"
+                fill="url(#phgrad)"
+              />
+              <path
+                d="M0 45 C20 42 35 32 55 28 C75 24 90 30 110 18 C130 8 150 14 170 8 L200 5"
+                fill="none"
+                stroke="rgba(129,140,248,0.95)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+              <circle cx="200" cy="5" r="2.2" fill="rgba(165,180,252,1)" />
+            </svg>
+          </div>
+
+          {/* Activity list */}
+          <div className="flex flex-col gap-1">
+            {[
+              { label: "New booking", value: "+$240" },
+              { label: "Subscription renewed", value: "+$89" },
+              { label: "Cart recovered", value: "+$156" },
+            ].map((row) => (
+              <div
+                key={row.label}
+                className="flex items-center justify-between rounded-md"
+                style={{
+                  padding: "5px 7px",
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                }}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span
+                    style={{
+                      width: 5,
+                      height: 5,
+                      background: "rgba(129,140,248,0.85)",
+                      borderRadius: 999,
+                      boxShadow: "0 0 6px rgba(129,140,248,0.6)",
+                    }}
+                  />
+                  <span style={{ fontSize: 8, color: "rgba(250,250,250,0.8)", fontWeight: 600 }}>
+                    {row.label}
+                  </span>
+                </div>
+                <span style={{ fontSize: 8, color: "rgba(52,211,153,0.85)", fontWeight: 700 }}>
+                  {row.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Home indicator */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{
+            bottom: "1.4%",
+            height: 3,
+            width: "32%",
+            background: "rgba(255,255,255,0.5)",
+            borderRadius: 999,
+          }}
+        />
+      </div>
+    </div>
+  </div>
+);
+
 // Phone with e-commerce storefront — Aura Therapeutics
 export const PhoneStorefront: React.FC = () => (
   <div className="relative w-full h-full flex items-center justify-center" style={{ background: "#030305" }}>
