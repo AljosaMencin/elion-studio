@@ -80,42 +80,42 @@ const SERVICES: Service[] = [
     accent: "rgba(165,180,252,0.55)",
   },
   {
-    id: "systems",
+    id: "bookings",
     index: "02",
-    name: "Systems",
-    tag: "SaaS & Tools",
-    title: "Operating systems for your business.",
-    lead: "Booking, dashboards and automations. Set up once, working for you forever.",
+    name: "Bookings",
+    tag: "Bookings & Scheduling",
+    title: "A calendar that fills itself.",
+    lead: "Online booking, automated reminders and confirmations — set up once, working for you forever.",
     detail:
-      "We replace spreadsheets, sticky notes and \"someone will remember\" with one connected system. Bookings flow into your calendar, sales flow into your dashboard, and your team gets out of the inbox and back to the work that matters.",
+      "We replace spreadsheets, sticky notes and \"someone will remember\" with one connected booking system. Clients book themselves around your real availability, reminders go out automatically, and every appointment lands in your calendar — and in your dashboard — without anyone lifting a finger.",
     highlights: [
-      "Real-time booking & calendars",
-      "Custom KPI dashboards",
-      "Automations & integrations",
-      "Multi-site content hub",
-      "Notifications & reminders",
-      "Roles, permissions, audit trail",
+      "24/7 self-service booking page",
+      "Real-time calendar sync",
+      "SMS & email reminders",
+      "Online deposits & payments",
+      "Staff schedules & permissions",
+      "Cancellations, reschedules, no-shows tracked",
     ],
     metrics: [
-      { value: "24/7", label: "Always on" },
+      { value: "24/7", label: "Always open" },
       { value: "−40%", label: "Admin time" },
       { value: "1×", label: "Source of truth" },
     ],
     process: [
       {
         step: "01",
-        title: "Map the workflow",
-        description: "Where time leaks, where errors happen, what to automate first.",
+        title: "Map your availability",
+        description: "Services, staff, locations, durations — modelled the way you actually run.",
       },
       {
         step: "02",
-        title: "Build the system",
-        description: "Booking, dashboard, content hub, or all three, wired to your data.",
+        title: "Launch the booking page",
+        description: "A branded booking flow on your site, mobile-first, accepts deposits if you need them.",
       },
       {
         step: "03",
-        title: "Connect & automate",
-        description: "Stripe, calendars, email and the tools you already pay for.",
+        title: "Automate the follow-up",
+        description: "Reminders, confirmations, reviews, win-backs — all running on their own.",
       },
     ],
     useCases: [
@@ -187,7 +187,6 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
   const accentSoft = service.accent.replace(baseOpacity, "0.18");
   const accentMid = service.accent.replace(baseOpacity, "0.4");
   const accentSolid = service.accent.replace(baseOpacity, "1");
-  const accentStrong = service.accent.replace(baseOpacity, "0.85");
 
   return (
     <section
@@ -201,15 +200,7 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
           <ScrollFadeBlur
             className={`relative lg:col-span-5 ${flip ? "lg:order-2" : ""}`}
           >
-            {/* Giant ghost index */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -top-12 -left-2 select-none font-display text-[10rem] font-bold leading-none text-bone/[0.04] md:-top-20 md:text-[14rem]"
-            >
-              {service.index}
-            </span>
-
-            <div className="relative flex flex-col items-center text-center lg:items-center">
+            <div className="flex flex-col items-start text-left">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-bone/65">
                 <span
                   className="h-1.5 w-1.5 rounded-full"
@@ -230,8 +221,8 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                 {service.detail}
               </p>
 
-              {/* Highlights — 2-column */}
-              <ul className="mt-8 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {/* Highlights — two-column on sm+, single column on mobile */}
+              <ul className="mt-8 grid w-full grid-cols-1 gap-2.5 sm:grid-cols-2">
                 {service.highlights.map((h, i) => (
                   <motion.li
                     key={h}
@@ -266,34 +257,6 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
                   </motion.li>
                 ))}
               </ul>
-
-              {/* Metrics row */}
-              <div className="mt-10 flex items-stretch divide-x divide-white/[0.06] rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-                {service.metrics.map((m, i) => (
-                  <motion.div
-                    key={m.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-                    className="flex flex-1 flex-col items-center px-4 py-4"
-                  >
-                    <span
-                      className="font-display text-2xl font-bold tracking-tight text-bone md:text-3xl"
-                      style={{
-                        backgroundImage: `linear-gradient(180deg, hsl(0 0% 98%), ${accentStrong})`,
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                      }}
-                    >
-                      {m.value}
-                    </span>
-                    <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-bone/40">
-                      {m.label}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
             </div>
           </ScrollFadeBlur>
 
@@ -364,20 +327,6 @@ const ServiceBlock = ({ service, flip }: { service: Service; flip: boolean }) =>
           </div>
         </ScrollFadeBlur>
 
-        {/* Use cases */}
-        <ScrollFadeBlur className="mt-12 flex flex-wrap items-center justify-center gap-3">
-          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-bone/35">
-            Built for
-          </span>
-          {service.useCases.map((u) => (
-            <span
-              key={u}
-              className="rounded-full border border-bone/12 bg-white/[0.02] px-3 py-1.5 text-[11px] font-semibold text-bone/70"
-            >
-              {u}
-            </span>
-          ))}
-        </ScrollFadeBlur>
       </div>
 
       {/* Connector ribbon */}
