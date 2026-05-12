@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 // ── Floating UI cards (six infrastructure pieces) ─────────────────────────────
 
 const cardBase =
-  "absolute rounded-xl border border-white/[0.08] bg-white/[0.025] backdrop-blur-xl p-3 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)]";
+  "rounded-xl border border-white/[0.08] bg-white/[0.025] backdrop-blur-xl p-3 shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)]";
 
 const AnalyticsCard = () => (
   <div className="flex flex-col gap-2" style={{ width: 180 }}>
@@ -418,26 +418,77 @@ const ConversionCard = () => (
   </div>
 );
 
-// Card positions around the core — { x%, y%, rotation, content, delay, float }
+// Card positions — six points around the core on a circle in pixel space
+// (so every connection line renders at the same length, regardless of the
+// 16:10 container aspect ratio).
+//
+// Computed in a 16:10 frame with the core at (50%, 50%) and a radial
+// distance of 25% of the width. For an angle θ measured clockwise from
+// the top:
+//   dx_px = R * sin(θ)
+//   dy_px = -R * cos(θ)
+// Converted to % of width / height (16:10), then offset from 50%/50%.
+//
+// Angles: 30° (upper-right), 90° (right), 150° (lower-right),
+// 210° (lower-left), 270° (left), 330° (upper-left).
+//
+// `x` / `y` here are the CARD CENTER positions. The card uses
+// translate(-50%, -50%) so left/top reference the centre rather than the
+// top-left corner.
+
+// Asymmetric card layout — six points scattered around the core at varied
+// angles, radii and depths. Some cards sit slightly closer (prominent),
+// others slightly further (recessed). Breaks the rigid hex/orbit look.
+//
+// `scale` / `opacity` together fake depth-of-field without actually blurring
+// text. `rot` is intentionally varied for that "naturally floating" feel.
+
 const CARDS = [
-  { x: "6%",  y: "10%", rot: -3.5, content: <AnalyticsCard />,   delay: 0.2,  amp: 10, dur: 11 },
-  { x: "70%", y: "6%",  rot: 3,    content: <BookingsCard />,    delay: 0.35, amp: 12, dur: 13 },
-  { x: "2%",  y: "62%", rot: 2,    content: <CrmCard />,         delay: 0.5,  amp: 9,  dur: 12 },
-  { x: "65%", y: "60%", rot: -2.5, content: <AutomationCard />,  delay: 0.65, amp: 11, dur: 14 },
-  { x: "26%", y: "82%", rot: -1.5, content: <ConversionCard />,  delay: 0.8,  amp: 8,  dur: 10 },
-  { x: "78%", y: "36%", rot: 2,    content: <AiCard />,          delay: 0.95, amp: 10, dur: 13.5 },
+  // Upper-left — Bookings (slightly recessed)
+  { x: "34.89%", y: "15.49%", rot: -3, scale: 0.95, opacity: 0.92, content: <BookingsCard />,   delay: 0.2,  amp: 9,  dur: 13 },
+  // Upper-right — Analytics (prominent, foreground)
+  { x: "66.26%", y: "12.87%", rot: 2,  scale: 1.05, opacity: 1,    content: <AnalyticsCard />,  delay: 0.32, amp: 12, dur: 11 },
+  // Mid-left — CRM (normal)
+  { x: "19.54%", y: "54.27%", rot: -2, scale: 1,    opacity: 0.97, content: <CrmCard />,        delay: 0.45, amp: 11, dur: 13.5 },
+  // Mid-right — AI Insight (normal)
+  { x: "78.73%", y: "62.32%", rot: 3,  scale: 1,    opacity: 1,    content: <AiCard />,         delay: 0.58, amp: 10, dur: 14 },
+  // Lower-left — Conversion (prominent, foreground)
+  { x: "34.56%", y: "85.28%", rot: -2, scale: 1.04, opacity: 1,    content: <ConversionCard />, delay: 0.72, amp: 8,  dur: 10 },
+  // Lower-right — Automation (slightly recessed)
+  { x: "64.96%", y: "84.19%", rot: 4,  scale: 0.96, opacity: 0.94, content: <AutomationCard />, delay: 0.86, amp: 11, dur: 12 },
+];
+
+// Connection endpoint per card (matches CARDS order). Used for SVG paths
+// and per-line gradients so each line fades as it reaches its card.
+const ENDPOINTS = [
+  { x: 34.89, y: 15.49 },
+  { x: 66.26, y: 12.87 },
+  { x: 19.54, y: 54.27 },
+  { x: 78.73, y: 62.32 },
+  { x: 34.56, y: 85.28 },
+  { x: 64.96, y: 84.19 },
 ];
 
 // ── Connection paths from core to each card (SVG) ─────────────────────────────
+//
+// Order matches CARDS above. Each path goes from the core (50, 50) to the
+// matching card centre, with a soft bezier curve for an elegant arc.
 
+// Organic bezier curves — control points pulled off-axis for a more
+// "energy path" feel than a straight diagram. Endpoints match CARDS above.
 const CONNECTIONS: { d: string; delay: number }[] = [
-  // Core ≈ (50, 50). Each path arcs to the approximate card center.
-  { d: "M50 50 C 38 42, 24 30, 14 18",      delay: 0.3 },
-  { d: "M50 50 C 64 40, 76 26, 84 14",      delay: 0.45 },
-  { d: "M50 50 C 38 58, 22 66, 11 72",      delay: 0.6 },
-  { d: "M50 50 C 62 56, 74 64, 80 70",      delay: 0.75 },
-  { d: "M50 50 C 46 64, 38 78, 33 87",      delay: 0.9 },
-  { d: "M50 50 C 64 50, 76 46, 88 42",      delay: 1.05 },
+  // → Bookings (upper-left)
+  { d: "M50 50 C 43 40, 38 28, 34.89 15.49", delay: 0.3 },
+  // → Analytics (upper-right)
+  { d: "M50 50 C 58 38, 62 24, 66.26 12.87", delay: 0.42 },
+  // → CRM (mid-left)
+  { d: "M50 50 C 39 47, 28 55, 19.54 54.27", delay: 0.55 },
+  // → AI Insight (mid-right)
+  { d: "M50 50 C 60 52, 71 60, 78.73 62.32", delay: 0.68 },
+  // → Conversion (lower-left)
+  { d: "M50 50 C 45 64, 39 78, 34.56 85.28", delay: 0.82 },
+  // → Automation (lower-right)
+  { d: "M50 50 C 56 65, 61 77, 64.96 84.19", delay: 0.96 },
 ];
 
 // ── Main visual ───────────────────────────────────────────────────────────────
@@ -445,29 +496,23 @@ const CONNECTIONS: { d: string; delay: number }[] = [
 const EcosystemHero = () => {
   return (
     <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
-      {/* Atmospheric glow behind the whole scene */}
+      {/* Layered atmospheric glow — distant haze plus a tighter core halo */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 55% 55% at 50% 50%, rgba(99,102,241,0.22), transparent 65%)",
-          filter: "blur(40px)",
+            "radial-gradient(ellipse 70% 70% at 50% 55%, rgba(67,56,202,0.22), transparent 65%)",
+          filter: "blur(50px)",
         }}
       />
-
-      {/* Faint grid */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-          maskImage:
-            "radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 78%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, transparent 78%)",
+          background:
+            "radial-gradient(ellipse 30% 30% at 50% 50%, rgba(129,140,248,0.32), transparent 60%)",
+          filter: "blur(40px)",
         }}
       />
 
@@ -484,135 +529,163 @@ const EcosystemHero = () => {
             <stop offset="60%" stopColor="rgba(99,102,241,0.18)" />
             <stop offset="100%" stopColor="rgba(99,102,241,0)" />
           </radialGradient>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="rgba(165,180,252,0.7)" />
-            <stop offset="100%" stopColor="rgba(99,102,241,0)" />
-          </linearGradient>
+          {/* Per-line gradients: bright near the core, fading to transparent
+              as the line reaches the card. */}
+          {ENDPOINTS.map((e, i) => (
+            <linearGradient
+              key={i}
+              id={`lineGrad-${i}`}
+              x1={50}
+              y1={50}
+              x2={e.x}
+              y2={e.y}
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stopColor="rgba(165,180,252,0.55)" />
+              <stop offset="45%" stopColor="rgba(129,140,248,0.3)" />
+              <stop offset="80%" stopColor="rgba(99,102,241,0.08)" />
+              <stop offset="100%" stopColor="rgba(99,102,241,0)" />
+            </linearGradient>
+          ))}
         </defs>
 
-        {/* Slow rotating orbit rings */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "50px 50px" }}
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r="20"
-            fill="none"
-            stroke="rgba(165,180,252,0.18)"
-            strokeWidth="0.12"
-            strokeDasharray="0.6 1.4"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r="30"
-            fill="none"
-            stroke="rgba(165,180,252,0.13)"
-            strokeWidth="0.1"
-            strokeDasharray="0.4 1.6"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            r="40"
-            fill="none"
-            stroke="rgba(165,180,252,0.09)"
-            strokeWidth="0.08"
-            strokeDasharray="0.3 1.8"
-          />
-        </motion.g>
 
-        {/* Connection lines */}
+        {/* Connection lines — softer, more like energy paths than wires */}
         {CONNECTIONS.map((c, i) => (
           <motion.path
             key={i}
             d={c.d}
             fill="none"
-            stroke="url(#lineGrad)"
-            strokeWidth="0.18"
+            stroke={`url(#lineGrad-${i})`}
+            strokeWidth="0.14"
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1.4, delay: c.delay, ease: "easeOut" }}
+            transition={{ duration: 1.6, delay: c.delay, ease: "easeOut" }}
           />
         ))}
 
-        {/* Data pulse dots — travel along each connection */}
-        {CONNECTIONS.map((c, i) => (
+        {/* Data pulse dots — 2 per line, offset, so the energy feels continuous */}
+        {CONNECTIONS.flatMap((c, i) => [
           <motion.circle
-            key={`p-${i}`}
-            r="0.35"
-            fill="rgba(199,210,254,0.95)"
+            key={`p-${i}-a`}
+            r="0.32"
+            fill="rgba(199,210,254,0.9)"
             style={{
-              filter: "drop-shadow(0 0 1.5px rgba(165,180,252,0.9))",
+              filter: "drop-shadow(0 0 1.4px rgba(165,180,252,0.85))",
               offsetPath: `path('${c.d}')`,
               offsetRotate: "0deg",
             }}
-            animate={{ offsetDistance: ["0%", "100%"] }}
+            animate={{ offsetDistance: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
             transition={{
-              duration: 4 + (i % 3),
+              duration: 5 + (i % 3),
               repeat: Infinity,
               ease: "easeInOut",
               delay: c.delay + 0.5,
+              times: [0, 0.15, 0.85, 1],
             }}
-          />
-        ))}
+          />,
+          <motion.circle
+            key={`p-${i}-b`}
+            r="0.22"
+            fill="rgba(199,210,254,0.6)"
+            style={{
+              filter: "drop-shadow(0 0 1px rgba(165,180,252,0.6))",
+              offsetPath: `path('${c.d}')`,
+              offsetRotate: "0deg",
+            }}
+            animate={{ offsetDistance: ["0%", "100%"], opacity: [0, 0.7, 0.7, 0] }}
+            transition={{
+              duration: 7 + ((i + 1) % 3),
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: c.delay + 2.5,
+              times: [0, 0.15, 0.85, 1],
+            }}
+          />,
+        ])}
       </svg>
 
-      {/* Central core */}
+      {/* ── Central core ─────────────────────────────────────────────────
+          Wider than the visible orb: outer wrapper hosts the gravitational
+          halo and orbiting particles, inner orb is the bright glass sphere. */}
       <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        style={{ width: "16%", aspectRatio: "1" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{ width: "28%", aspectRatio: "1" }}
       >
-        {/* Pulsing halo */}
+        {/* Outer atmospheric halo — soft, layered, breathing */}
         <motion.div
           aria-hidden
           className="absolute inset-0 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(165,180,252,0.5) 0%, rgba(99,102,241,0.2) 40%, transparent 70%)",
-            filter: "blur(8px)",
+              "radial-gradient(circle, rgba(165,180,252,0.32) 0%, rgba(99,102,241,0.16) 28%, rgba(99,102,241,0.04) 55%, transparent 75%)",
+            filter: "blur(14px)",
           }}
-          animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
+
+        {/* Gravitational "lensing" ring — a darker band hugging the orb */}
+        <div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            inset: "30%",
+            background:
+              "radial-gradient(circle, transparent 55%, rgba(8,8,16,0.55) 68%, transparent 85%)",
+            mixBlendMode: "multiply",
+          }}
+        />
+
+        {/* Faint outer ring — single accent stroke, not a wireframe */}
+        <motion.div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            inset: "26%",
+            border: "1px solid rgba(165,180,252,0.18)",
+            boxShadow: "0 0 18px -2px rgba(129,140,248,0.35) inset",
+          }}
+          animate={{ opacity: [0.65, 1, 0.65] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         {/* Glassy orb */}
         <motion.div
-          className="absolute inset-[15%] rounded-full"
+          className="absolute rounded-full"
           style={{
+            inset: "33%",
             background:
-              "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18), rgba(99,102,241,0.35) 45%, rgba(20,20,40,0.85) 90%)",
-            border: "1px solid rgba(255,255,255,0.12)",
+              "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.22), rgba(129,140,248,0.45) 40%, rgba(20,20,40,0.9) 92%)",
+            border: "1px solid rgba(255,255,255,0.14)",
             boxShadow:
-              "0 0 60px rgba(99,102,241,0.55), inset 0 0 25px rgba(255,255,255,0.08)",
+              "0 0 80px rgba(99,102,241,0.6), 0 0 28px rgba(165,180,252,0.4), inset 0 0 28px rgba(255,255,255,0.1)",
           }}
-          animate={{ scale: [1, 1.04, 1] }}
+          animate={{ scale: [1, 1.045, 1] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
-          {/* Inner highlight */}
+          {/* Top-light reflection */}
           <div
             aria-hidden
-            className="absolute inset-[18%] rounded-full"
+            className="absolute inset-[12%] rounded-full"
             style={{
               background:
-                "radial-gradient(circle at 40% 35%, rgba(255,255,255,0.5), transparent 55%)",
+                "radial-gradient(circle at 38% 30%, rgba(255,255,255,0.55), transparent 50%)",
             }}
           />
           {/* Center symbol */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <svg width="38%" height="38%" viewBox="0 0 24 24" fill="none">
+            <svg width="42%" height="42%" viewBox="0 0 24 24" fill="none">
               <path
                 d="M12 2L2 7l10 5 10-5-10-5z"
-                stroke="rgba(255,255,255,0.92)"
+                stroke="rgba(255,255,255,0.95)"
                 strokeWidth="1.5"
                 strokeLinejoin="round"
               />
               <path
                 d="M2 17l10 5 10-5M2 12l10 5 10-5"
-                stroke="rgba(165,180,252,0.85)"
+                stroke="rgba(199,210,254,0.9)"
                 strokeWidth="1.3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -620,9 +693,51 @@ const EcosystemHero = () => {
             </svg>
           </div>
         </motion.div>
+
+        {/* Orbiting particles around the core — bright dots that orbit on
+            invisible paths so the core feels "alive" without showing rings */}
+        {[
+          { r: 0.36, dur: 14, delay: 0,    size: 4 },
+          { r: 0.36, dur: 14, delay: -4.6, size: 3 },
+          { r: 0.36, dur: 14, delay: -9.3, size: 4 },
+          { r: 0.44, dur: 22, delay: 0,    size: 3 },
+          { r: 0.44, dur: 22, delay: -11,  size: 2 },
+          { r: 0.30, dur: 9,  delay: -2.5, size: 3 },
+          { r: 0.30, dur: 9,  delay: -6,   size: 2 },
+        ].map((p, i) => (
+          <motion.div
+            key={`orbit-p-${i}`}
+            aria-hidden
+            className="absolute left-1/2 top-1/2"
+            style={{
+              width: 0,
+              height: 0,
+              transformOrigin: "0 0",
+            }}
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: p.dur,
+              repeat: Infinity,
+              ease: "linear",
+              delay: p.delay,
+            }}
+          >
+            <span
+              className="absolute block rounded-full"
+              style={{
+                width: p.size,
+                height: p.size,
+                background: "rgba(199,210,254,0.95)",
+                boxShadow:
+                  "0 0 8px rgba(165,180,252,0.95), 0 0 16px rgba(129,140,248,0.5)",
+                transform: `translate(-50%, -50%) translateX(${p.r * 100}%)`,
+              }}
+            />
+          </motion.div>
+        ))}
       </div>
 
-      {/* Floating cards */}
+      {/* Floating cards — each centred on its (x, y) point via translate(-50%, -50%) */}
       {CARDS.map((card, i) => (
         <div
           key={i}
@@ -630,58 +745,80 @@ const EcosystemHero = () => {
           style={{
             left: card.x,
             top: card.y,
-            transform: `rotate(${card.rot}deg)`,
+            transform: "translate(-50%, -50%)",
             willChange: "transform",
           }}
         >
-          {/* Entrance — fade + scale only (no y, so it can't fight the float) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{
-              duration: 1,
-              delay: card.delay,
-              ease: [0.22, 1, 0.36, 1],
+          {/* Static rotation + per-card depth scale on its own wrapper so
+              framer-motion's animated transforms never overwrite them */}
+          <div
+            style={{
+              transform: `rotate(${card.rot}deg) scale(${card.scale})`,
             }}
           >
-            {/* Continuous float — slow, smooth, organic */}
+            {/* Entrance — fade + subtle scale only (no y, so it can't fight the float) */}
             <motion.div
-              className={cardBase}
-              style={{ willChange: "transform" }}
-              animate={{ y: [0, -card.amp, 0, card.amp * 0.6, 0] }}
+              initial={{ opacity: 0, scale: 0.94, filter: "blur(8px)" }}
+              animate={{ opacity: card.opacity, scale: 1, filter: "blur(0px)" }}
               transition={{
-                duration: card.dur,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.55, 0.8, 1],
+                duration: 1,
                 delay: card.delay,
+                ease: [0.22, 1, 0.36, 1],
               }}
             >
-              {card.content}
+              {/* Continuous float — slow, smooth, organic */}
+              <motion.div
+                className={cardBase}
+                style={{ willChange: "transform" }}
+                animate={{ y: [0, -card.amp, 0, card.amp * 0.6, 0] }}
+                transition={{
+                  duration: card.dur,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  times: [0, 0.3, 0.55, 0.8, 1],
+                  delay: card.delay,
+                }}
+              >
+                {card.content}
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       ))}
 
-      {/* Drifting particles */}
-      {Array.from({ length: 14 }).map((_, i) => {
-        const left = 10 + ((i * 53) % 80);
-        const top = 8 + ((i * 31) % 84);
-        const dur = 6 + (i % 5);
-        const delay = (i % 7) * 0.3;
+      {/* Drifting particles — three depth tiers for atmospheric depth.
+          Background: tiny, dim, slow. Mid: medium, moderate. Foreground:
+          slightly larger and brighter, faster drift. */}
+      {Array.from({ length: 32 }).map((_, i) => {
+        const left = 4 + ((i * 53) % 92);
+        const top = 4 + ((i * 31) % 92);
+        // Three depth tiers based on index mod
+        const tier = i % 3;
+        const sizePx = tier === 0 ? 1.5 : tier === 1 ? 2.5 : 3.5;
+        const opacityMax = tier === 0 ? 0.4 : tier === 1 ? 0.7 : 1;
+        const blurPx = tier === 0 ? 0.6 : 0;
+        const dur = 7 + ((i * 1.3) % 6);
+        const delay = (i % 9) * 0.4;
+        const yAmp = 10 + (tier * 6);
         return (
           <motion.span
             key={`p-${i}`}
-            className="pointer-events-none absolute h-[3px] w-[3px] rounded-full"
+            className="pointer-events-none absolute rounded-full"
             style={{
               left: `${left}%`,
               top: `${top}%`,
-              background: "rgba(199,210,254,0.7)",
-              boxShadow: "0 0 6px rgba(165,180,252,0.85)",
+              width: sizePx,
+              height: sizePx,
+              background: "rgba(199,210,254,0.9)",
+              boxShadow:
+                tier === 2
+                  ? "0 0 7px rgba(165,180,252,0.95), 0 0 14px rgba(129,140,248,0.4)"
+                  : "0 0 4px rgba(165,180,252,0.7)",
+              filter: blurPx > 0 ? `blur(${blurPx}px)` : undefined,
             }}
             animate={{
-              y: [0, -18, 0],
-              opacity: [0, 0.9, 0],
+              y: [0, -yAmp, 0],
+              opacity: [0, opacityMax, 0],
             }}
             transition={{
               duration: dur,
